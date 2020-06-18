@@ -1,0 +1,32 @@
+<nav ngbNav #nav="ngbNav" class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a ngbNavItem ngbNavLink routerLink="/" class="navbar-brand"  [routerLink]="'.'">
+      <img width="40" height="40" src="assets/icons/surveylogo.png">
+      Student survey system
+    </a>
+
+    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+  <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+    <ul class="navbar-nav">
+      <li ngbNavItem class="nav-item" ng-class>
+
+        <a ngbNavLink class="nav-link" routerLink="/SurveysList"><img width="25" height="25" src="assets/icons/surveyicon.png"> Surveys list</a>
+      </li>
+
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      <li ngbNavItem class="nav-item">
+        <a ngbNavLink class="nav-link" routerLink="/About">
+          <img width="25" height="25" src="assets/icons/info.png">
+          About</a>
+      </li>
+      <li class="nav-item">
+        <button class="btn btn-outline-danger">Logout</button>
+      </li>
+    </ul>
+
+
+  </div>
+</nav>
