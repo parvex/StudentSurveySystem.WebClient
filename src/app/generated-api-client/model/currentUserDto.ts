@@ -18,4 +18,5 @@ export interface CurrentUserDto {
     username?: string;
     userRole?: UserRole;
     token?: string;
+    tokenExpirationDate?: Date;
 }

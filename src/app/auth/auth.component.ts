@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { UsersService } from '../generated-api-client';
+import { UsersService, UsosAuthDto } from '../generated-api-client';
+import { AuthService } from './auth.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -8,11 +10,43 @@ import { UsersService } from '../generated-api-client';
 })
 export class AuthComponent implements OnInit {
 
-  constructor(private usersService: UsersService) { }
+
+  setUsosAuth(usosAuth: UsosAuthDto){
+    localStorage.setItem("usosAuth", JSON.stringify(usosAuth));
+  }
+
+  getUsosAuth(){
+    return JSON.parse(localStorage.getItem("usosAuth")) as UsosAuthDto;
+  }
+
+  clearUsosAuth(){
+    return localStorage.removeItem("usosAuth");
+  }
+
+  constructor(private authService: AuthService, private route: ActivatedRoute, private usersService: UsersService) {
+    this.route.queryParams.subscribe(params => {
+      const oauthToken = params['oauth_token'];
+      const oauthVerifier = params['oauth_verifier'];
+      if(!!oauthVerifier){
+        const usosAuth = this.getUsosAuth();
+        usosAuth.oAuthVerifier = oauthVerifier;
+        this.clearUsosAuth();
+        this.usersService.usersUsosPinAuthPost(usosAuth).subscribe(data =>{
+          this.authService.handleAuthentication(data);
+        });
+      }
+    });
+  }
 
   ngOnInit(): void {
+
+  }
+
+  onUsosAuthClick() {
     this.usersService.usersUsosAuthDataGet().subscribe(data => {
-      console.log(data);
+    this.setUsosAuth(data as UsosAuthDto);
+      window.location.href = data.usosAuthUrl;
     })
   }
+
 }

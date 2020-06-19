@@ -8,10 +8,9 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-  <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse">
+  <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" *ngIf="isAuthenticated">
     <ul class="navbar-nav">
-      <li ngbNavItem class="nav-item" ng-class>
-
+      <li ngbNavItem class="nav-item">
         <a ngbNavLink class="nav-link" routerLink="/SurveysList"><img width="25" height="25" src="assets/icons/surveyicon.png"> Surveys list</a>
       </li>
 
@@ -23,7 +22,7 @@
           About</a>
       </li>
       <li class="nav-item">
-        <button class="btn btn-outline-danger">Logout</button>
+        <button class="btn btn-outline-danger" (click)="onLogout()">Logout</button>
       </li>
     </ul>
 

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SurveysService, SurveyDto } from '../generated-api-client';
 
 @Component({
   selector: 'app-surveys-list',
@@ -7,9 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SurveysListComponent implements OnInit {
 
-  constructor() { }
+  surveys: Array<SurveyDto>;
+
+  constructor(private surveysService: SurveysService) {}
 
   ngOnInit(): void {
+    this.surveysService.surveysMySurveysGet().subscribe(data => {this.surveys = data; console.log(this.surveys);});
   }
 
 }

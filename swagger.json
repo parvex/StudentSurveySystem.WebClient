@@ -1270,6 +1270,10 @@
           "token": {
             "type": "string",
             "nullable": true
+          },
+          "tokenExpirationDate": {
+            "type": "string",
+            "format": "date-time"
           }
         },
         "additionalProperties": false
