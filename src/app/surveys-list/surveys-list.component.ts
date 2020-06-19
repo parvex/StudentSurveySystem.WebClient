@@ -16,4 +16,5 @@ export class SurveysListComponent implements OnInit {
     this.surveysService.surveysMySurveysGet().subscribe(data => {this.surveys = data; console.log(this.surveys);});
   }
 
+
 }
