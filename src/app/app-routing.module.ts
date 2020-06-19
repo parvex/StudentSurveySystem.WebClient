@@ -6,7 +6,7 @@ import { SurveysListComponent } from './surveys-list/surveys-list.component';
 
 
 const routes: Routes = [
-{ path: '', component: AboutComponent },
+{ path: '', component: AuthComponent },
 { path: 'Auth', component: AuthComponent },
 { path: 'SurveysList', component: SurveysListComponent },
 { path: 'About', component: AboutComponent }];

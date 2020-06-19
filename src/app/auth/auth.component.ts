@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UsersService } from '../generated-api-client';
 
 @Component({
   selector: 'app-auth',
@@ -7,9 +8,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponent implements OnInit {
 
-  constructor() { }
+  constructor(private usersService: UsersService) { }
 
   ngOnInit(): void {
+    this.usersService.usersUsosAuthDataGet().subscribe(data => {
+      console.log(data);
+    })
   }
-
 }
