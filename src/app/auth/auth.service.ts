@@ -13,7 +13,6 @@ export class AuthService {
   user = new BehaviorSubject<CurrentUserDto>(null);
   private tokenExpirationTimer: any;
 
-
   constructor(private jwtHelper: JwtHelperService, private http: HttpClient, private router: Router) {}
 
   public getUser(): CurrentUserDto{
@@ -26,16 +25,14 @@ export class AuthService {
 
   public isAuthenticated(): boolean{
     const user = this.getUser();
-    return(user != null && !this.jwtHelper.isTokenExpired(user.token))
+    return(user != null)
   }
 
   public getAuthToken(): string{
     return this.getUser()?.token;
   }
 
-
   autoLogin() {
-
     if(!this.isAuthenticated())
       return;
     const userData : CurrentUserDto = this.getUser();
@@ -45,10 +42,9 @@ export class AuthService {
     this.autoLogout(expirationDuration);
   }
 
-
   logout() {
-    this.user.next(null);
     localStorage.removeItem('user');
+    this.user.next(null);
     if (this.tokenExpirationTimer) {
       clearTimeout(this.tokenExpirationTimer);
     }
@@ -64,6 +60,7 @@ export class AuthService {
 
   handleAuthentication(user: CurrentUserDto) {
     const expirationDuration = new Date(user.tokenExpirationDate).getTime() - new Date().getTime();
+    this.setUser(user);
     this.user.next(user);
     this.autoLogout(expirationDuration);
     localStorage.setItem('user', JSON.stringify(user));
