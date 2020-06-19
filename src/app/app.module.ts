@@ -13,6 +13,8 @@ import { environment } from 'src/environments/environment';
 import { ApiModule, BASE_PATH, Configuration, CurrentUserDto } from './generated-api-client';
 import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@auth0/angular-jwt';
+import { FormsModule } from '@angular/forms';
+import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 
 
 @NgModule({
@@ -30,6 +32,8 @@ import { JwtModule } from '@auth0/angular-jwt';
     NgbModule,
     ApiModule,
     HttpClientModule,
+    FormsModule,
+    InfiniteScrollModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

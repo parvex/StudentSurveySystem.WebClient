@@ -1,26 +1,30 @@
-<form class="p-2">
-  <div class="form-group form-inline">
-      Full text search: <input class="form-control ml-2" type="text"/>
-  </div>
-</form>
+<div class="form-group form-inline p-2">
+  Title: <input class="form-control ml-2" type="text" [(ngModel)]="filterText" (change)="onFilter()" />
+</div>
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th scope="col">#</th>
-    <th scope="col">Title</th>
-    <th scope="col">Course</th>
-    <th scope="col">Creator</th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let survey of surveys; index as i">
-    <th scope="row">{{ i + 1 }}</th>
-    <td>
-      <ngb-highlight [result]="survey.name" ></ngb-highlight>
-    </td>
-    <td><ngb-highlight [result]="survey.courseName"></ngb-highlight></td>
-    <td><ngb-highlight [result]="survey.creatorName"></ngb-highlight></td>
-  </tr>
-  </tbody>
-</table>
+<div
+infinite-scroll
+[infiniteScrollDistance]="1"
+[infiniteScrollThrottle]="300"
+(scrolled)="onScrollDown()">
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Course</th>
+      <th scope="col">Creator</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let survey of surveys; index as i">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        <ngb-highlight [result]="survey.name" ></ngb-highlight>
+      </td>
+      <td><ngb-highlight [result]="survey.courseName"></ngb-highlight></td>
+      <td><ngb-highlight [result]="survey.creatorName"></ngb-highlight></td>
+    </tr>
+    </tbody>
+  </table>
+</div>
