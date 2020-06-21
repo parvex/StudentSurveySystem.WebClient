@@ -5,7 +5,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 @Component({
   selector: 'app-surveys-list',
   templateUrl: './surveys-list.component.html',
-  styleUrls: ['./surveys-list.component.sass']
+  styleUrls: ['./surveys-list.component.scss']
 })
 export class SurveysResultsListComponent implements OnInit {
 
