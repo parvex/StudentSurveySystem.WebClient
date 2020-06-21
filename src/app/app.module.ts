@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { QuestionResultsComponent } from './survey-results/question-results/question-results.component';
-
+import { NgxChartsModule } from '@swimlane/ngx-charts';
 
 @NgModule({
   declarations: [
@@ -38,6 +38,7 @@ import { QuestionResultsComponent } from './survey-results/question-results/ques
     HttpClientModule,
     FormsModule,
     InfiniteScrollModule,
+    NgxChartsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

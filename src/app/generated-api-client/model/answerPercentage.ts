@@ -11,7 +11,7 @@
  */
 
 export interface AnswerPercentage { 
-    answer?: string;
-    percentOfAnswers?: number;
+    name?: string;
+    value?: number;
     numberOfAnswers?: number;
 }

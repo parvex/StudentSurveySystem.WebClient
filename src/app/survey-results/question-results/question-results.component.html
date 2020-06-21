@@ -1,13 +1,16 @@
 <div class="question-result">
 
   <div class="row">
+    <span class="details-label">#Question index todo: </span> <span class="details">{{questionResult.questionId}}</span>
+  </div>
+  <div class="row">
     <span class="details-label">Question text: </span> <span class="details">{{questionResult.questionText}}</span>
   </div>
   <div class="row">
     <span class="details-label">Question type: </span> <span class="details">{{questionResult.questionType}}</span>
   </div>
 
-  <ul ngbNav #nav="ngbNav" [(activeId)]="tabId" class="nav-tabs">
+  <ul ngbNav #nav="ngbNav" [(activeId)]="tabId" class="nav-pills">
     <li [ngbNavItem]="1">
       <a ngbNavLink>Hide</a>
       <ng-template ngbNavContent>
@@ -16,7 +19,29 @@
     <li [ngbNavItem]="2">
       <a ngbNavLink>Aggregated answers</a>
       <ng-template ngbNavContent>
-        <table class="table table-light table-striped">
+        <div *ngIf="questionResult.questionType !== 'Boolean'" class="chart">
+          <ngx-charts-bar-horizontal
+          [results]="questionResult.answerPercentages"
+          [gradient]="true"
+          [xAxis]="true"
+          [yAxis]="true"
+          [showXAxisLabel]="true"
+          [showYAxisLabel]="true"
+          [xAxisLabel]="'Percentage'"
+          [yAxisLabel]="'Answer'"
+          [xScaleMax]="100">
+          </ngx-charts-bar-horizontal>
+       </div>
+        <div *ngIf="questionResult.questionType === 'Boolean'" class="chart">
+          <ngx-charts-pie-chart
+          [view]="[800,600]"
+          [results]="questionResult.answerPercentages"
+          [labels]="true"
+          [doughnut]="false"
+          >
+        </ngx-charts-pie-chart>
+       </div>
+        <!-- <table class="table table-light table-striped">
           <thead class="thead-dark">
             <tr>
               <th scope="col">#</th>
@@ -33,7 +58,7 @@
               <td>{{percentage.numberOfAnswers}}</td>
             </tr>
           </tbody>
-        </table>
+        </table> -->
       </ng-template>
     </li>
     <li [ngbNavItem]="3">

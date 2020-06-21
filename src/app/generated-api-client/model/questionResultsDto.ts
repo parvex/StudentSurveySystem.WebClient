@@ -14,6 +14,7 @@ import { QuestionAnswerDto } from './questionAnswerDto';
 import { QuestionType } from './questionType';
 
 export interface QuestionResultsDto { 
+    questionIndex?: number;
     questionId?: number;
     questionText?: string;
     questionType?: QuestionType;
