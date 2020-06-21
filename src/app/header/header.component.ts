@@ -8,7 +8,7 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./header.component.sass']
 })
 export class HeaderComponent implements OnInit {
-  isMenuCollapsed = false;
+  isMenuCollapsed = true;
   isAuthenticated = false;
   private userSub: Subscription;
 

@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthComponent } from './auth/auth.component';
 import { HeaderComponent } from './header/header.component';
-import { SurveysListComponent } from './surveys-list/surveys-list.component';
+import { SurveysResultsListComponent } from './surveys-list/surveys-list.component';
 import { SurveyResultsComponent } from './survey-results/survey-results.component';
 import { AboutComponent } from './about/about.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -15,6 +15,7 @@ import { AuthService } from './auth/auth.service';
 import { JwtModule } from '@auth0/angular-jwt';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 
 @NgModule({
@@ -22,9 +23,10 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
     AppComponent,
     AuthComponent,
     HeaderComponent,
-    SurveysListComponent,
+    SurveysResultsListComponent,
     SurveyResultsComponent,
-    AboutComponent
+    AboutComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,

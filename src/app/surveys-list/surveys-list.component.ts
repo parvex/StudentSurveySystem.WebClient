@@ -7,7 +7,7 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
   templateUrl: './surveys-list.component.html',
   styleUrls: ['./surveys-list.component.sass']
 })
-export class SurveysListComponent implements OnInit {
+export class SurveysResultsListComponent implements OnInit {
 
   pageSize = 20;
   filterText = "";

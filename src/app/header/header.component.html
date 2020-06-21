@@ -4,14 +4,14 @@
       Student survey system
     </a>
 
-    <button class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
+    <button *ngIf="isAuthenticated" class="navbar-toggler" type="button" (click)="isMenuCollapsed = !isMenuCollapsed">
       <span class="navbar-toggler-icon"></span>
     </button>
 
   <div [ngbCollapse]="isMenuCollapsed" class="collapse navbar-collapse" *ngIf="isAuthenticated">
     <ul class="navbar-nav">
       <li ngbNavItem class="nav-item">
-        <a ngbNavLink class="nav-link" routerLink="/SurveysList"><img width="25" height="25" src="assets/icons/surveyicon.png"> Surveys list</a>
+        <a ngbNavLink class="nav-link" routerLink="/SurveysResults"><img width="25" height="25" src="assets/icons/surveyicon.png"> Survey results</a>
       </li>
 
     </ul>
