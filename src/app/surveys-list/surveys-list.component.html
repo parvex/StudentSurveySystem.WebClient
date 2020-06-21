@@ -17,15 +17,14 @@ infinite-scroll
     </tr>
     </thead>
     <tbody>
-    <tr *ngFor="let survey of surveys; index as i">
-      <a routerLink="">
-        <th scope="row">{{ i + 1 }}</th>
-        <td>
-          <ngb-highlight [result]="survey.name" ></ngb-highlight>
-        </td>
-        <td><ngb-highlight [result]="survey.courseName"></ngb-highlight></td>
-        <td><ngb-highlight [result]="survey.creatorName"></ngb-highlight></td>
-      </a>
+
+    <tr *ngFor="let survey of surveys; index as i" style="cursor: pointer;" [routerLink]="[survey.id]">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>
+        <ngb-highlight [result]="survey.name" ></ngb-highlight>
+      </td>
+      <td><ngb-highlight [result]="survey.courseName"></ngb-highlight></td>
+      <td><ngb-highlight [result]="survey.creatorName"></ngb-highlight></td>
     </tr>
     </tbody>
   </table>

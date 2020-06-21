@@ -19,6 +19,7 @@ import { Observable }                                        from 'rxjs';
 
 import { SurveyResponseDetailsDto } from '../model/surveyResponseDetailsDto';
 import { SurveyResponseDto } from '../model/surveyResponseDto';
+import { SurveyResultsDto } from '../model/surveyResultsDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
 import { Configuration }                                     from '../configuration';
@@ -60,15 +61,17 @@ export class SurveyResponsesService {
      * 
      * 
      * @param name 
+     * @param surveyId 
      * @param page 
      * @param count 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public surveyResponsesGet(name?: string, page?: number, count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<SurveyResponseDetailsDto>>;
-    public surveyResponsesGet(name?: string, page?: number, count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SurveyResponseDetailsDto>>>;
-    public surveyResponsesGet(name?: string, page?: number, count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SurveyResponseDetailsDto>>>;
-    public surveyResponsesGet(name?: string, page?: number, count?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public surveyResponsesGet(name?: string, surveyId?: number, page?: number, count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<SurveyResponseDetailsDto>>;
+    public surveyResponsesGet(name?: string, surveyId?: number, page?: number, count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SurveyResponseDetailsDto>>>;
+    public surveyResponsesGet(name?: string, surveyId?: number, page?: number, count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SurveyResponseDetailsDto>>>;
+    public surveyResponsesGet(name?: string, surveyId?: number, page?: number, count?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
 
 
 
@@ -76,6 +79,9 @@ export class SurveyResponsesService {
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (name !== undefined && name !== null) {
             queryParameters = queryParameters.set('name', <any>name);
+        }
+        if (surveyId !== undefined && surveyId !== null) {
+            queryParameters = queryParameters.set('surveyId', <any>surveyId);
         }
         if (page !== undefined && page !== null) {
             queryParameters = queryParameters.set('page', <any>page);
@@ -279,6 +285,56 @@ export class SurveyResponsesService {
         return this.httpClient.request<SurveyResponseDto>('post',`${this.basePath}/SurveyResponses`,
             {
                 body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public surveyResponsesSurveyResultsIdGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<SurveyResultsDto>;
+    public surveyResponsesSurveyResultsIdGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SurveyResultsDto>>;
+    public surveyResponsesSurveyResultsIdGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SurveyResultsDto>>;
+    public surveyResponsesSurveyResultsIdGet(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling surveyResponsesSurveyResultsIdGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<SurveyResultsDto>('get',`${this.basePath}/SurveyResponses/SurveyResults/${encodeURIComponent(String(id))}`,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

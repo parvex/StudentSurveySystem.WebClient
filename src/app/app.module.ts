@@ -16,6 +16,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { FormsModule } from '@angular/forms';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { QuestionResultsComponent } from './survey-results/question-results/question-results.component';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     SurveysResultsListComponent,
     SurveyResultsComponent,
     AboutComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    QuestionResultsComponent
   ],
   imports: [
     BrowserModule,
