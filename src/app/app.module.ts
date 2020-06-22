@@ -18,6 +18,9 @@ import { InfiniteScrollModule } from 'ngx-infinite-scroll';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { QuestionResultsComponent } from './survey-results/question-results/question-results.component';
 import { NgxChartsModule } from '@swimlane/ngx-charts';
+import { ResponseListComponent } from './survey-results/response-list/response-list.component';
+import { ResponseDetailsComponent } from './survey-results/response-list/response-details/response-details.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -28,7 +31,9 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     SurveyResultsComponent,
     AboutComponent,
     NotFoundComponent,
-    QuestionResultsComponent
+    QuestionResultsComponent,
+    ResponseListComponent,
+    ResponseDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,6 +44,7 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
     FormsModule,
     InfiniteScrollModule,
     NgxChartsModule,
+    BrowserAnimationsModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

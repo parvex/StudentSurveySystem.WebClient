@@ -21,10 +21,10 @@ export class SurveysResultsListComponent implements OnInit {
   }
 
   onFilter(){
-    this.surveysService.surveysMySurveysGet(this.filterText, true, 0, this.pageSize).subscribe(data => this.surveys = data)
+    this.surveysService.surveysMySurveysGet(this.filterText, 0, this.pageSize).subscribe(data => this.surveys = data)
   }
 
   onScrollDown(){
-    this.surveysService.surveysMySurveysGet(this.filterText, true,  this.surveys.length/this.pageSize, this.pageSize).subscribe(data => this.surveys.push(...data))
+    this.surveysService.surveysMySurveysGet(this.filterText,  this.surveys.length/this.pageSize, this.pageSize).subscribe(data => this.surveys.push(...data))
   }
 }

@@ -3,12 +3,18 @@
 /* Importing Bootstrap SCSS file. */
 @import '~bootstrap/scss/bootstrap';
 
+body{
+  background-color: #eeeeee;
+}
+
 .details{
-  margin-left:10px;
+  padding: 5px;
 }
 
 .details-label{
   font-weight: bold;
+  margin-left: 20px;
+  padding: 5px;
 }
 
 //charts overflows without this

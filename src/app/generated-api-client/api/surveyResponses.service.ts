@@ -19,6 +19,7 @@ import { Observable }                                        from 'rxjs';
 
 import { SurveyResponseDetailsDto } from '../model/surveyResponseDetailsDto';
 import { SurveyResponseDto } from '../model/surveyResponseDto';
+import { SurveyResponseListItemDto } from '../model/surveyResponseListItemDto';
 import { SurveyResultsDto } from '../model/surveyResultsDto';
 
 import { BASE_PATH, COLLECTION_FORMATS }                     from '../variables';
@@ -60,6 +61,56 @@ export class SurveyResponsesService {
     /**
      * 
      * 
+     * @param id 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public surveyResponsesDetailsIdGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<SurveyResponseDetailsDto>;
+    public surveyResponsesDetailsIdGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SurveyResponseDetailsDto>>;
+    public surveyResponsesDetailsIdGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SurveyResponseDetailsDto>>;
+    public surveyResponsesDetailsIdGet(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        if (id === null || id === undefined) {
+            throw new Error('Required parameter id was null or undefined when calling surveyResponsesDetailsIdGet.');
+        }
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<SurveyResponseDetailsDto>('get',`${this.basePath}/SurveyResponses/details/${encodeURIComponent(String(id))}`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
      * @param name 
      * @param surveyId 
      * @param page 
@@ -67,9 +118,9 @@ export class SurveyResponsesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public surveyResponsesGet(name?: string, surveyId?: number, page?: number, count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<SurveyResponseDetailsDto>>;
-    public surveyResponsesGet(name?: string, surveyId?: number, page?: number, count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SurveyResponseDetailsDto>>>;
-    public surveyResponsesGet(name?: string, surveyId?: number, page?: number, count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SurveyResponseDetailsDto>>>;
+    public surveyResponsesGet(name?: string, surveyId?: number, page?: number, count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<SurveyResponseListItemDto>>;
+    public surveyResponsesGet(name?: string, surveyId?: number, page?: number, count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SurveyResponseListItemDto>>>;
+    public surveyResponsesGet(name?: string, surveyId?: number, page?: number, count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SurveyResponseListItemDto>>>;
     public surveyResponsesGet(name?: string, surveyId?: number, page?: number, count?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
@@ -114,7 +165,7 @@ export class SurveyResponsesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<SurveyResponseDetailsDto>>('get',`${this.basePath}/SurveyResponses`,
+        return this.httpClient.request<Array<SurveyResponseListItemDto>>('get',`${this.basePath}/SurveyResponses`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
@@ -184,9 +235,9 @@ export class SurveyResponsesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public surveyResponsesMyCompletedGet(name?: string, page?: number, count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<SurveyResponseDetailsDto>>;
-    public surveyResponsesMyCompletedGet(name?: string, page?: number, count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SurveyResponseDetailsDto>>>;
-    public surveyResponsesMyCompletedGet(name?: string, page?: number, count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SurveyResponseDetailsDto>>>;
+    public surveyResponsesMyCompletedGet(name?: string, page?: number, count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<SurveyResponseListItemDto>>;
+    public surveyResponsesMyCompletedGet(name?: string, page?: number, count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SurveyResponseListItemDto>>>;
+    public surveyResponsesMyCompletedGet(name?: string, page?: number, count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SurveyResponseListItemDto>>>;
     public surveyResponsesMyCompletedGet(name?: string, page?: number, count?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
@@ -227,7 +278,7 @@ export class SurveyResponsesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<Array<SurveyResponseDetailsDto>>('get',`${this.basePath}/SurveyResponses/MyCompleted`,
+        return this.httpClient.request<Array<SurveyResponseListItemDto>>('get',`${this.basePath}/SurveyResponses/MyCompleted`,
             {
                 params: queryParameters,
                 withCredentials: this.configuration.withCredentials,

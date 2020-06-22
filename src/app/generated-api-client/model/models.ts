@@ -16,6 +16,7 @@ export * from './surveyDto';
 export * from './surveyListItemDto';
 export * from './surveyResponseDetailsDto';
 export * from './surveyResponseDto';
+export * from './surveyResponseListItemDto';
 export * from './surveyResultsDto';
 export * from './user';
 export * from './userRole';

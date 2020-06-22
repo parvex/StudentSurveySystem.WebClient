@@ -1,15 +1,17 @@
 <div class="question-result">
 
-  <div class="row">
-    <span class="details-label">#Question index todo: </span> <span class="details">{{questionResult.questionId}}</span>
+  <div class="card">
+    <div class="row">
+      <div class="details-label">Question index: </div> <div class="details">{{questionResult?.questionIndex}}</div>
+    </div>
+    <div class="row">
+      <div class="details-label">Question text: </div> <div class="details">{{questionResult?.questionText}}</div>
+    </div>
+    <div class="row">
+      <div class="details-label">Question type: </div> <div class="details">{{questionResult?.questionType}}</div>
+    </div>
   </div>
-  <div class="row">
-    <span class="details-label">Question text: </span> <span class="details">{{questionResult.questionText}}</span>
-  </div>
-  <div class="row">
-    <span class="details-label">Question type: </span> <span class="details">{{questionResult.questionType}}</span>
-  </div>
-
+  <hr>
   <ul ngbNav #nav="ngbNav" [(activeId)]="tabId" class="nav-pills">
     <li [ngbNavItem]="1">
       <a ngbNavLink>Hide</a>
@@ -19,7 +21,7 @@
     <li [ngbNavItem]="2">
       <a ngbNavLink>Aggregated answers</a>
       <ng-template ngbNavContent>
-        <div *ngIf="questionResult.questionType !== 'Boolean'" class="chart">
+        <div class="chart">
           <ngx-charts-bar-horizontal
           [results]="questionResult.answerPercentages"
           [gradient]="true"
@@ -32,33 +34,6 @@
           [xScaleMax]="100">
           </ngx-charts-bar-horizontal>
        </div>
-        <div *ngIf="questionResult.questionType === 'Boolean'" class="chart">
-          <ngx-charts-pie-chart
-          [view]="[800,600]"
-          [results]="questionResult.answerPercentages"
-          [labels]="true"
-          [doughnut]="false"
-          >
-        </ngx-charts-pie-chart>
-       </div>
-        <!-- <table class="table table-light table-striped">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Answer</th>
-              <th scope="col">Percentage</th>
-              <th scope="col">Number of answers:</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let percentage of questionResult.answerPercentages; index as i">
-              <th scope="row">{{i}}</th>
-              <td>{{percentage.answer}}</td>
-              <td>{{percentage.percentOfAnswers}}</td>
-              <td>{{percentage.numberOfAnswers}}</td>
-            </tr>
-          </tbody>
-        </table> -->
       </ng-template>
     </li>
     <li [ngbNavItem]="3">
@@ -73,7 +48,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr *ngFor="let answer of questionResult.questionAnswers; index as i">
+            <tr *ngFor="let answer of questionResult?.questionAnswers; index as i">
               <th scope="row">{{i}}</th>
               <td>{{answer.respondent}}</td>
               <td>{{answer.value}}</td>

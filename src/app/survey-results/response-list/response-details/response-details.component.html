@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="details-label">Survey name: </div> <div class="details">{{response?.surveyName}}</div>
+</div>
+<div class="row">
+  <div class="details-label">Course name: </div> <div class="details">{{response?.courseName}}</div>
+</div>
+<div class="row">
+  <div class="details-label">Submit date: </div> <div class="details">{{response?.date}}</div>
+</div>
+<div class="row">
+  <div class="details-label">Respondent: </div> <div class="details">{{response?.respondent}}</div>
+</div>
+<hr>
+<div *ngFor="let answer of response?.answers" class="row">
+  <div class="details-label">{{answer?.questionText}} </div> <div class="details">{{answer?.value}}</div>
+</div>

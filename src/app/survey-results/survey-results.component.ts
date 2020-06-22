@@ -9,6 +9,8 @@ import { SurveyDto, SurveysService, SurveyResponsesService, SurveyResultsDto } f
 })
 export class SurveyResultsComponent implements OnInit {
 
+
+  activeTab = 1;
   id: number;
   surveyResults : SurveyResultsDto;
 

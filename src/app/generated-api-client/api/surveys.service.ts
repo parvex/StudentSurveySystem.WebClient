@@ -386,17 +386,15 @@ export class SurveysService {
      * 
      * 
      * @param name 
-     * @param active 
      * @param page 
      * @param count 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public surveysMySurveysGet(name?: string, active?: boolean, page?: number, count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<SurveyListItemDto>>;
-    public surveysMySurveysGet(name?: string, active?: boolean, page?: number, count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SurveyListItemDto>>>;
-    public surveysMySurveysGet(name?: string, active?: boolean, page?: number, count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SurveyListItemDto>>>;
-    public surveysMySurveysGet(name?: string, active?: boolean, page?: number, count?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
+    public surveysMySurveysGet(name?: string, page?: number, count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<SurveyListItemDto>>;
+    public surveysMySurveysGet(name?: string, page?: number, count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SurveyListItemDto>>>;
+    public surveysMySurveysGet(name?: string, page?: number, count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SurveyListItemDto>>>;
+    public surveysMySurveysGet(name?: string, page?: number, count?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
@@ -404,9 +402,6 @@ export class SurveysService {
         let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
         if (name !== undefined && name !== null) {
             queryParameters = queryParameters.set('name', <any>name);
-        }
-        if (active !== undefined && active !== null) {
-            queryParameters = queryParameters.set('active', <any>active);
         }
         if (page !== undefined && page !== null) {
             queryParameters = queryParameters.set('page', <any>page);
