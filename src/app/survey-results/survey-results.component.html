@@ -11,7 +11,7 @@
 
     <ul ngbNav #nav="ngbNav" [(activeId)]="activeTab" class="nav nav-pills justify-content-center">
       <li [ngbNavItem]="1">
-        <a ngbNavLink><img width="40" height="40" src="assets/icons/questionresult.png">Question results</a>
+        <a ngbNavLink><img width="40" height="40" src="assets/icons/questionresult.png"> Question results</a>
         <ng-template ngbNavContent>
           <div *ngFor="let questionResult of surveyResults?.questionResults">
             <app-question-results [questionResult]="questionResult"></app-question-results>
