@@ -4,7 +4,9 @@
   left: 50%;
   width:350px;
   padding: 10px;
-  translate: -175px;
   border-radius: 25px;
   background-color: white;
+  transform: translate(-175px);
+  -webkit-transform: translate(-175px);
+  -ms-transform: translate(-175px);
 }

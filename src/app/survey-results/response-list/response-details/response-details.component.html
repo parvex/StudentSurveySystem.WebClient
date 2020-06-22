@@ -11,6 +11,7 @@
   <div class="details-label">Respondent: </div> <div class="details">{{response?.respondent}}</div>
 </div>
 <hr>
+<h4>Answers</h4>
 <div *ngFor="let answer of response?.answers" class="row">
   <div class="details-label">{{answer?.questionText}} </div> <div class="details">{{answer?.value}}</div>
 </div>

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
-import { SurveyDto, SurveysService, SurveyResponsesService, SurveyResultsDto } from '../generated-api-client';
+import { SurveyResponsesService, SurveyResultsDto } from '../generated-api-client';
 import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({

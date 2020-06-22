@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SurveyResponsesService, SurveyResponseDetailsDto } from 'src/app/generated-api-client';
+import { SurveyResponseDetailsDto } from 'src/app/generated-api-client';
 
 @Component({
   selector: 'app-response-details',

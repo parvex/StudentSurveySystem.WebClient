@@ -1,25 +1,27 @@
 <div class="question-result">
 
   <div class="card">
-    <div class="row">
-      <div class="details-label">Question index: </div> <div class="details">{{questionResult?.questionIndex}}</div>
+    <div class="container">
+      <div class="row">
+        <div class="details-label">Question index: </div> <div class="details">{{questionResult?.questionIndex}}</div>
+      </div>
+      <div class="row">
+        <div class="details-label">Question text: </div> <div class="details">{{questionResult?.questionText}}</div>
+      </div>
+      <div class="row">
+        <div class="details-label">Question type: </div> <div class="details">{{questionResult?.questionType}}</div>
+      </div>
     </div>
-    <div class="row">
-      <div class="details-label">Question text: </div> <div class="details">{{questionResult?.questionText}}</div>
     </div>
-    <div class="row">
-      <div class="details-label">Question type: </div> <div class="details">{{questionResult?.questionType}}</div>
-    </div>
-  </div>
   <hr>
-  <ul ngbNav #nav="ngbNav" [(activeId)]="tabId" class="nav-pills">
+  <ul ngbNav #nav="ngbNav" [(activeId)]="tabId" class="nav nav-tabs">
     <li [ngbNavItem]="1">
       <a ngbNavLink>Hide</a>
       <ng-template ngbNavContent>
       </ng-template>
     </li>
     <li [ngbNavItem]="2">
-      <a ngbNavLink>Aggregated answers</a>
+      <a ngbNavLink>Percentages</a>
       <ng-template ngbNavContent>
         <div class="chart">
           <ngx-charts-bar-horizontal
