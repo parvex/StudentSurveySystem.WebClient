@@ -29,7 +29,7 @@ infinite-scroll
       <td><ngb-highlight [result]="survey.name" ></ngb-highlight></td>
       <td><ngb-highlight [result]="survey.courseName"></ngb-highlight></td>
       <td><ngb-highlight [result]="survey.active"></ngb-highlight></td>
-      <td><ngb-highlight [result]="survey.endDate"></ngb-highlight></td>
+      <td><ngb-highlight [result]="survey.endDate | date"></ngb-highlight></td>
       <td><ngb-highlight [result]="survey.anonymous"></ngb-highlight></td>
     </tr>
 

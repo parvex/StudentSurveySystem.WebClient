@@ -5,7 +5,7 @@
   <div class="details-label">Course name: </div> <div class="details">{{response?.courseName}}</div>
 </div>
 <div class="row">
-  <div class="details-label">Submit date: </div> <div class="details">{{response?.date}}</div>
+  <div class="details-label">Submit date: </div> <div class="details">{{response?.date | date}}</div>
 </div>
 <div class="row">
   <div class="details-label">Respondent: </div> <div class="details">{{response?.respondent}}</div>
@@ -13,5 +13,7 @@
 <hr>
 <h4>Answers</h4>
 <div *ngFor="let answer of response?.answers" class="row">
-  <div class="details-label">{{answer?.questionText}} </div> <div class="details">{{answer?.value}}</div>
+  <div class="details-label">{{answer?.questionText}}: </div>
+  <div *ngIf="answer.questionType==='Date'" class="details">{{answer?.value | date}}</div>
+  <div *ngIf="answer.questionType!=='Date'" class="details">{{answer?.value}}</div>
 </div>

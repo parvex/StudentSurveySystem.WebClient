@@ -49,11 +49,18 @@
               <th scope="col">Answer</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody *ngIf="questionResult.questionType!=='Date'">
             <tr *ngFor="let answer of questionResult?.questionAnswers; index as i">
               <th scope="row">{{i}}</th>
               <td>{{answer.respondent}}</td>
               <td>{{answer.value}}</td>
+            </tr>
+          </tbody>
+          <tbody *ngIf="questionResult.questionType==='Date'">
+            <tr *ngFor="let answer of questionResult?.questionAnswers; index as i">
+              <th scope="row">{{i}}</th>
+              <td>{{answer.respondent}}</td>
+              <td>{{answer.value | date}}</td>
             </tr>
           </tbody>
         </table>

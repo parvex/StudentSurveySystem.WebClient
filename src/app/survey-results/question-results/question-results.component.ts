@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { QuestionResultsDto } from 'src/app/generated-api-client';
+import { QuestionResultsDto, AnswerPercentage } from 'src/app/generated-api-client';
 
 @Component({
   selector: 'app-question-results',
