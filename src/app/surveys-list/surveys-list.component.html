@@ -1,5 +1,11 @@
-<div class="form-group form-inline p-2">
-  Title: <input class="form-control ml-2" type="text" [(ngModel)]="filterText" (change)="onFilter()" />
+<div class="row mt-2">
+  <div class="form-group form-inline col-md-6">
+    Title: <input class="form-control ml-2" type="text" [(ngModel)]="filterText" (change)="onFilter()" />
+  </div>
+
+  <div class="col-md-6">
+    <button (click)="onAdd(content)" class="btn btn-primary">Add</button>
+  </div>
 </div>
 
 <div
@@ -20,7 +26,7 @@ infinite-scroll
     </thead>
     <tbody>
 
-    <tr *ngFor="let survey of surveys; index as i" style="cursor: pointer;" [routerLink]="[survey.id]">
+    <tr *ngFor="let survey of surveys" style="cursor: pointer;" (click)="onNavigate(survey.id, content)">
       <th scope="row">
         <img *ngIf="surveyListType===0" class="list-icon" src="assets/icons/result.png">
         <img *ngIf="surveyListType===1" class="list-icon" src="assets/icons/surveyicon.png">
@@ -36,3 +42,15 @@ infinite-scroll
     </tbody>
   </table>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Survey response details</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <app-survey-form *ngIf="selectedSurvey != null" [survey]="selectedSurvey"></app-survey-form>
+  </div>
+</ng-template>

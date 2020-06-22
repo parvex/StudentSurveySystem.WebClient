@@ -1,8 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SurveysService, SurveyListItemDto } from '../generated-api-client';
+import { SurveysService, SurveyListItemDto, SurveyDto } from '../generated-api-client';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SurveyListType } from './survey-list-type.enum';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-surveys-list',
@@ -13,20 +14,25 @@ export class SurveyListComponent implements OnInit {
 
   pageSize = 20;
   filterText = "";
+  selectedSurvey: SurveyDto;
   @Input() surveyListType: SurveyListType;
 
   surveys: Array<SurveyListItemDto>;
   iconPath: string;
-  constructor(private surveysService: SurveysService, private spinner : NgxSpinnerService, private route: ActivatedRoute) {}
+  constructor(private surveysService: SurveysService,
+    private spinner : NgxSpinnerService,
+     private route: ActivatedRoute,
+     private router: Router,
+     private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.surveyListType = this.route.snapshot.data.surveyListType;
-    console.log(this.surveyListType);
     this.spinner.show();
     switch(this.surveyListType)
     {
       case SurveyListType.Surveys: {
         this.surveysService.surveysMySurveysGet().subscribe(data => {this.surveys = data; this.spinner.hide();} );
+        break;
       }
       case SurveyListType.Results: {
         this.surveysService.surveysMySurveysGet().subscribe(data => {this.surveys = data; this.spinner.hide();} );
@@ -45,6 +51,7 @@ export class SurveyListComponent implements OnInit {
     {
       case SurveyListType.Surveys: {
         this.surveysService.surveysMySurveysGet(this.filterText, 0, this.pageSize).subscribe(data => {this.surveys = data; this.spinner.hide();})
+        break;
       }
       case SurveyListType.Results: {
         this.surveysService.surveysMySurveysGet(this.filterText, 0, this.pageSize).subscribe(data => {this.surveys = data; this.spinner.hide();})
@@ -65,6 +72,7 @@ export class SurveyListComponent implements OnInit {
     {
       case SurveyListType.Surveys: {
         this.surveysService.surveysMySurveysGet(this.filterText,  this.surveys.length/this.pageSize, this.pageSize).subscribe(data => {this.surveys.push(...data); this.spinner.hide();})
+        break;
       }
       case SurveyListType.Results: {
         this.surveysService.surveysMySurveysGet(this.filterText,  this.surveys.length/this.pageSize, this.pageSize).subscribe(data => {this.surveys.push(...data); this.spinner.hide();})
@@ -75,5 +83,34 @@ export class SurveyListComponent implements OnInit {
         break;
       }
     }
+  }
+
+  onNavigate(id: number, content){
+    switch(this.surveyListType)
+    {
+
+      case SurveyListType.Results: {
+        this.router.navigate([id], { relativeTo: this.route });
+        break;
+      }
+      case SurveyListType.Surveys: {
+      }
+      case SurveyListType.SurveyTemplates: {
+        this.spinner.show();
+        this.surveysService.surveysIdGet(id).subscribe(data => {
+          this.selectedSurvey = data;
+          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+          this.spinner.hide();
+        })
+        break;
+      }
+    }
+  }
+
+  onAdd(content){
+    this.selectedSurvey = {} as SurveyDto;
+    if(this.surveyListType === SurveyListType.SurveyTemplates)
+      this.selectedSurvey.isTemplate = true;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 }
