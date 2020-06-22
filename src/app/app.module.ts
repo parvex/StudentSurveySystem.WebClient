@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthComponent } from './auth/auth.component';
 import { HeaderComponent } from './header/header.component';
-import { SurveysResultsListComponent } from './surveys-list/surveys-list.component';
+import { SurveyListComponent } from './surveys-list/surveys-list.component';
 import { SurveyResultsComponent } from './survey-results/survey-results.component';
 import { AboutComponent } from './about/about.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -23,19 +23,21 @@ import { ResponseDetailsComponent } from './survey-results/response-list/respons
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxSpinnerService, NgxSpinnerModule } from "ngx-spinner";
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { SurveyFormComponent } from './survey-form/survey-form.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AuthComponent,
     HeaderComponent,
-    SurveysResultsListComponent,
+    SurveyListComponent,
     SurveyResultsComponent,
     AboutComponent,
     NotFoundComponent,
     QuestionResultsComponent,
     ResponseListComponent,
     ResponseDetailsComponent,
+    SurveyFormComponent,
   ],
   imports: [
     BrowserModule,

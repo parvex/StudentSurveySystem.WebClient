@@ -2,16 +2,21 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AuthComponent } from './auth/auth.component';
 import { AboutComponent } from './about/about.component';
-import { SurveysResultsListComponent } from './surveys-list/surveys-list.component';
+import { SurveyListComponent } from './surveys-list/surveys-list.component';
 import { AuthGuard } from './auth/auth.guard';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SurveyResultsComponent } from './survey-results/survey-results.component';
+import { SurveyListType } from './surveys-list/survey-list-type.enum';
 
 
 const routes: Routes = [
   { path: '', component: AboutComponent, canActivate:[AuthGuard]},
-  { path: 'SurveysResults', component: SurveysResultsListComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer'}},
+  { path: 'SurveysResults', component: SurveyListComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer', surveyListType: SurveyListType.Results}},
   { path: 'SurveysResults/:id', component: SurveyResultsComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer'}},
+  { path: 'Surveys', component: SurveyListComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer', surveyListType: SurveyListType.Surveys}},
+  { path: 'Surveys/:id', component: SurveyResultsComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer'}},
+  { path: 'SurveyTemplates', component: SurveyListComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer', surveyListType: SurveyListType.SurveyTemplates}},
+  { path: 'SurveyTemplates/:id', component: SurveyResultsComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer'}},
   { path: 'About', component: AboutComponent },
   { path: 'Auth', component: AuthComponent },
   { path: '**', component: NotFoundComponent }
