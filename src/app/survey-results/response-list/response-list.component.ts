@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { SurveysService, SurveyListItemDto, SurveyResponseDto, SurveyResponseListItemDto, SurveyResponsesService, SurveyResponseDetailsDto } from 'src/app/generated-api-client';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgxSpinner } from 'ngx-spinner/lib/ngx-spinner.enum';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-response-list',
@@ -16,7 +18,7 @@ export class ResponseListComponent implements OnInit {
   responses: Array<SurveyResponseListItemDto>;
   selectedResponse: SurveyResponseDetailsDto;
 
-  constructor(private surveyResponsesService: SurveyResponsesService, private modalService : NgbModal) {}
+  constructor(private surveyResponsesService: SurveyResponsesService, private modalService : NgbModal, private spinner: NgxSpinnerService) {}
 
   ngOnInit(): void {
     this.surveyResponsesService.surveyResponsesGet(this.filterText, this.surveyId, 0, this.pageSize).subscribe(data => this.responses = data)
@@ -27,8 +29,10 @@ export class ResponseListComponent implements OnInit {
   }
 
   onShowClick(content, id: number){
+    this.spinner.show();
     this.surveyResponsesService.surveyResponsesIdGet(id).subscribe(data => {
       this.selectedResponse = data;
+      this.spinner.hide();
       this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
     })
 

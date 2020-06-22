@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SurveysService, SurveyDto, SurveyListItemDto } from '../generated-api-client';
 import { InfiniteScrollModule } from 'ngx-infinite-scroll';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-surveys-list',
@@ -14,17 +15,20 @@ export class SurveysResultsListComponent implements OnInit {
 
   surveys: Array<SurveyListItemDto>;
 
-  constructor(private surveysService: SurveysService) {}
+  constructor(private surveysService: SurveysService, private spinner : NgxSpinnerService) {}
 
   ngOnInit(): void {
-    this.surveysService.surveysMySurveysGet().subscribe(data => this.surveys = data);
+    this.spinner.show();
+    this.surveysService.surveysMySurveysGet().subscribe(data => {this.surveys = data; this.spinner.hide();} );
   }
 
   onFilter(){
-    this.surveysService.surveysMySurveysGet(this.filterText, 0, this.pageSize).subscribe(data => this.surveys = data)
+    this.spinner.show();
+    this.surveysService.surveysMySurveysGet(this.filterText, 0, this.pageSize).subscribe(data => {this.surveys = data; this.spinner.hide();})
   }
 
   onScrollDown(){
-    this.surveysService.surveysMySurveysGet(this.filterText,  this.surveys.length/this.pageSize, this.pageSize).subscribe(data => this.surveys.push(...data))
+    this.spinner.show();
+    this.surveysService.surveysMySurveysGet(this.filterText,  this.surveys.length/this.pageSize, this.pageSize).subscribe(data => {this.surveys.push(...data); this.spinner.hide();})
   }
 }

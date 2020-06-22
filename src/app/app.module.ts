@@ -21,6 +21,8 @@ import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ResponseListComponent } from './survey-results/response-list/response-list.component';
 import { ResponseDetailsComponent } from './survey-results/response-list/response-details/response-details.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxSpinnerService, NgxSpinnerModule } from "ngx-spinner";
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -45,6 +47,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     InfiniteScrollModule,
     NgxChartsModule,
     BrowserAnimationsModule,
+    NgxSpinnerModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {
@@ -62,6 +65,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
       multi: false
     },
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }

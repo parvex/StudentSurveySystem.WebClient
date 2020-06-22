@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService, UsosAuthDto } from '../generated-api-client';
 import { AuthService } from './auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-auth',
@@ -23,7 +24,7 @@ export class AuthComponent implements OnInit {
     return localStorage.removeItem("usosAuth");
   }
 
-  constructor(private authService: AuthService, private route: ActivatedRoute, private usersService: UsersService) {
+  constructor(private authService: AuthService, private route: ActivatedRoute, private usersService: UsersService, private spinner: NgxSpinnerService) {
     this.route.queryParams.subscribe(params => {
       const oauthToken = params['oauth_token'];
       const oauthVerifier = params['oauth_verifier'];
@@ -43,6 +44,7 @@ export class AuthComponent implements OnInit {
   }
 
   onUsosAuthClick() {
+    this.spinner.show();
     this.usersService.usersUsosAuthDataGet().subscribe(data => {
     this.setUsosAuth(data as UsosAuthDto);
       window.location.href = data.usosAuthUrl;

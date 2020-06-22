@@ -4,6 +4,7 @@ import { JwtHelperService } from '@auth0/angular-jwt';
 import { throwError, BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 
 
@@ -13,7 +14,7 @@ export class AuthService {
   user = new BehaviorSubject<CurrentUserDto>(null);
   private tokenExpirationTimer: any;
 
-  constructor(private jwtHelper: JwtHelperService, private http: HttpClient, private router: Router) {}
+  constructor(private jwtHelper: JwtHelperService, private http: HttpClient, private router: Router, private spinner: NgxSpinnerService) {}
 
   public getUser(): CurrentUserDto{
     return JSON.parse(localStorage.getItem("user")) as CurrentUserDto;
@@ -65,5 +66,6 @@ export class AuthService {
     this.autoLogout(expirationDuration);
     localStorage.setItem('user', JSON.stringify(user));
     this.router.navigate(['SurveysResults']);
+    this.spinner.hide();
   }
 }
