@@ -43,10 +43,10 @@ infinite-scroll
   </table>
 </div>
 
-<ng-template #content let-modal>
+<ng-template #content>
   <div class="modal-header">
     <h4 class="modal-title" id="modal-basic-title">Survey response details</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="modal.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

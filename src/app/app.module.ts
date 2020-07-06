@@ -2,7 +2,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { AuthComponent } from './auth/auth.component';
 import { HeaderComponent } from './header/header.component';
 import { SurveyListComponent } from './surveys-list/surveys-list.component';
@@ -20,10 +19,14 @@ import { QuestionResultsComponent } from './survey-results/question-results/ques
 import { NgxChartsModule } from '@swimlane/ngx-charts';
 import { ResponseListComponent } from './survey-results/response-list/response-list.component';
 import { ResponseDetailsComponent } from './survey-results/response-list/response-details/response-details.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { NgxSpinnerService, NgxSpinnerModule } from "ngx-spinner";
+import { NgxSpinnerModule } from "ngx-spinner";
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { SurveyFormComponent } from './survey-form/survey-form.component';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
   declarations: [
@@ -42,7 +45,6 @@ import { SurveyFormComponent } from './survey-form/survey-form.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    NgbModule,
     ApiModule,
     HttpClientModule,
     FormsModule,
@@ -50,6 +52,10 @@ import { SurveyFormComponent } from './survey-form/survey-form.component';
     NgxChartsModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    BsDropdownModule.forRoot(),
+    ModalModule.forRoot(),
+    CollapseModule.forRoot(),
+    TabsModule.forRoot(),
     JwtModule.forRoot({
       config: {
         tokenGetter: () => {

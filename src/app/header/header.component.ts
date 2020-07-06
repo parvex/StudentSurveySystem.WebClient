@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
 import { UsersService } from '../generated-api-client';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-header',
@@ -14,8 +14,9 @@ export class HeaderComponent implements OnInit {
   isMenuCollapsed = true;
   isAuthenticated = false;
   private userSub: Subscription;
+  modal: BsModalRef;
 
-  constructor(private authService: AuthService, private usersService: UsersService, private modalService: NgbModal, private spinner: NgxSpinnerService) { }
+  constructor(private authService: AuthService, private usersService: UsersService, private modalService: BsModalService, private spinner: NgxSpinnerService) { }
 
   ngOnInit() {
     this.userSub = this.authService.user.subscribe(user => {
@@ -37,7 +38,7 @@ export class HeaderComponent implements OnInit {
 
     this.spinner.show();
     this.usersService.usersUpdateUserUsosDataPut().subscribe((data) =>{
-      this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+      this.modal = this.modalService.show(content);
       this.spinner.hide();
   })
   }

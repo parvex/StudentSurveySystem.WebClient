@@ -14,60 +14,49 @@
     </div>
     </div>
   <hr>
-  <ul ngbNav #nav="ngbNav" [(activeId)]="tabId" class="nav nav-tabs">
-    <li [ngbNavItem]="1">
-      <a ngbNavLink>Hide</a>
-      <ng-template ngbNavContent>
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="2">
-      <a ngbNavLink>Percentages</a>
-      <ng-template ngbNavContent>
-        <div class="chart">
-          <ngx-charts-bar-horizontal
-          [results]="questionResult.answerPercentages"
-          [gradient]="true"
-          [xAxis]="true"
-          [yAxis]="true"
-          [showXAxisLabel]="true"
-          [showYAxisLabel]="true"
-          [xAxisLabel]="'Percentage'"
-          [yAxisLabel]="'Answer'"
-          [xScaleMax]="100">
-          </ngx-charts-bar-horizontal>
-       </div>
-      </ng-template>
-    </li>
-    <li [ngbNavItem]="3">
-      <a ngbNavLink>Answers list</a>
-      <ng-template ngbNavContent>
-        <table class="table table-light table-striped">
-          <thead class="thead-dark">
-            <tr>
-              <th scope="col">#</th>
-              <th scope="col">Respondent</th>
-              <th scope="col">Answer</th>
-            </tr>
-          </thead>
-          <tbody *ngIf="questionResult.questionType!=='Date'">
-            <tr *ngFor="let answer of questionResult?.questionAnswers; index as i">
-              <th scope="row">{{i}}</th>
-              <td>{{answer.respondent}}</td>
-              <td>{{answer.value}}</td>
-            </tr>
-          </tbody>
-          <tbody *ngIf="questionResult.questionType==='Date'">
-            <tr *ngFor="let answer of questionResult?.questionAnswers; index as i">
-              <th scope="row">{{i}}</th>
-              <td>{{answer.respondent}}</td>
-              <td>{{answer.value | date}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </ng-template>
-    </li>
-  </ul>
-
-  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+  <tabset ngbNav class="nav nav-tabs">
+    <tab heading="Hide">
+    </tab>
+    <tab heading="Percentages">
+      <div class="chart">
+        <ngx-charts-bar-horizontal
+        [results]="questionResult.answerPercentages"
+        [gradient]="true"
+        [xAxis]="true"
+        [yAxis]="true"
+        [showXAxisLabel]="true"
+        [showYAxisLabel]="true"
+        [xAxisLabel]="'Percentage'"
+        [yAxisLabel]="'Answer'"
+        [xScaleMax]="100">
+        </ngx-charts-bar-horizontal>
+      </div>
+    </tab>
+    <tab heading="Answers list">
+      <table class="table table-light table-striped">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Respondent</th>
+            <th scope="col">Answer</th>
+          </tr>
+        </thead>
+        <tbody *ngIf="questionResult.questionType!=='Date'">
+          <tr *ngFor="let answer of questionResult?.questionAnswers; index as i">
+            <th scope="row">{{i}}</th>
+            <td>{{answer.respondent}}</td>
+            <td>{{answer.value}}</td>
+          </tr>
+        </tbody>
+        <tbody *ngIf="questionResult.questionType==='Date'">
+          <tr *ngFor="let answer of questionResult?.questionAnswers; index as i">
+            <th scope="row">{{i}}</th>
+            <td>{{answer.respondent}}</td>
+            <td>{{answer.value | date}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </tab>
+  </tabset>
 </div>
 

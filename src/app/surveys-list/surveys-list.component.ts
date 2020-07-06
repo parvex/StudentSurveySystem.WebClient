@@ -3,7 +3,7 @@ import { SurveysService, SurveyListItemDto, SurveyDto } from '../generated-api-c
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SurveyListType } from './survey-list-type.enum';
 import { ActivatedRoute, Router } from '@angular/router';
-import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ModalModule, BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-surveys-list',
@@ -16,6 +16,7 @@ export class SurveyListComponent implements OnInit {
   filterText = "";
   selectedSurvey: SurveyDto;
   @Input() surveyListType: SurveyListType;
+  modal: BsModalRef;
 
   surveys: Array<SurveyListItemDto>;
   iconPath: string;
@@ -23,7 +24,7 @@ export class SurveyListComponent implements OnInit {
     private spinner : NgxSpinnerService,
      private route: ActivatedRoute,
      private router: Router,
-     private modalService: NgbModal) {}
+     private modalService: BsModalService) {}
 
   ngOnInit(): void {
     this.surveyListType = this.route.snapshot.data.surveyListType;
@@ -99,7 +100,7 @@ export class SurveyListComponent implements OnInit {
         this.spinner.show();
         this.surveysService.surveysIdGet(id).subscribe(data => {
           this.selectedSurvey = data;
-          this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+          this.modal = this.modalService.show(content);
           this.spinner.hide();
         })
         break;
@@ -111,6 +112,6 @@ export class SurveyListComponent implements OnInit {
     this.selectedSurvey = {} as SurveyDto;
     if(this.surveyListType === SurveyListType.SurveyTemplates)
       this.selectedSurvey.isTemplate = true;
-    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+    this.modalService.show(content);
   }
 }
