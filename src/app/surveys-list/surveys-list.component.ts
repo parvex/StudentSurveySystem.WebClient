@@ -28,22 +28,7 @@ export class SurveyListComponent implements OnInit {
 
   ngOnInit(): void {
     this.surveyListType = this.route.snapshot.data.surveyListType;
-    this.spinner.show();
-    switch(this.surveyListType)
-    {
-      case SurveyListType.Surveys: {
-        this.surveysService.surveysMySurveysGet().subscribe(data => {this.surveys = data; this.spinner.hide();} );
-        break;
-      }
-      case SurveyListType.Results: {
-        this.surveysService.surveysMySurveysGet().subscribe(data => {this.surveys = data; this.spinner.hide();} );
-        break;
-      }
-      case SurveyListType.SurveyTemplates: {
-        this.surveysService.surveysMySurveyTemplatesGet().subscribe(data => {this.surveys = data; this.spinner.hide();} );
-        break;
-      }
-    }
+    this.onFilter();
   }
 
   onFilter(){
@@ -55,7 +40,10 @@ export class SurveyListComponent implements OnInit {
         break;
       }
       case SurveyListType.Results: {
-        this.surveysService.surveysMySurveysGet(this.filterText, 0, this.pageSize).subscribe(data => {this.surveys = data; this.spinner.hide();})
+        this.surveysService.surveysMySurveysGet(this.filterText, 0, this.pageSize).subscribe(data =>
+          {
+            this.surveys = data;
+            this.spinner.hide();})
         break;
       }
       case SurveyListType.SurveyTemplates: {

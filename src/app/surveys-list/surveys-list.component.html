@@ -3,7 +3,7 @@
     Title: <input class="form-control ml-2" type="text" [(ngModel)]="filterText" (change)="onFilter()" />
   </div>
 
-  <div class="col-md-6">
+  <div *ngIf="surveyListType !== 0" class="col-md-6">
     <button (click)="onAdd(content)" class="btn btn-primary">Add</button>
   </div>
 </div>
@@ -32,11 +32,11 @@ infinite-scroll
         <img *ngIf="surveyListType===1" class="list-icon" src="assets/icons/surveyicon.png">
         <img *ngIf="surveyListType===2" class="list-icon" src="assets/icons/template.png">
       </th>
-      <td><ngb-highlight [result]="survey.name" ></ngb-highlight></td>
-      <td><ngb-highlight [result]="survey.courseName"></ngb-highlight></td>
-      <td><ngb-highlight [result]="survey.active"></ngb-highlight></td>
-      <td><ngb-highlight [result]="survey.endDate | date"></ngb-highlight></td>
-      <td><ngb-highlight [result]="survey.anonymous"></ngb-highlight></td>
+      <td>{{survey.name}}</td>
+      <td>{{survey.courseName}}</td>
+      <td>{{survey.active}}</td>
+      <td>{{survey.endDate | date}}</td>
+      <td>{{survey.anonymous}}</td>
     </tr>
 
     </tbody>
