@@ -27,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -58,9 +59,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
     TabsModule.forRoot(),
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => {
-          return (JSON.parse(localStorage.getItem("user")) as CurrentUserDto).token;
-        },
+        tokenGetter: getToken,
       },
     })
   ],
@@ -77,3 +76,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class AppModule { }
+
+export function getToken(){
+  return (JSON.parse(localStorage.getItem("user")) as CurrentUserDto).token;
+}

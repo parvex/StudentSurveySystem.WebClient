@@ -18,6 +18,7 @@ export class ResponseListComponent implements OnInit {
   responses: Array<SurveyResponseListItemDto>;
   selectedResponse: SurveyResponseDetailsDto;
   modal: BsModalRef;
+  page:number = 1;
 
   constructor(private surveyResponsesService: SurveyResponsesService, private modalService : BsModalService, private spinner: NgxSpinnerService) {}
 
@@ -26,15 +27,18 @@ export class ResponseListComponent implements OnInit {
   }
 
   onScrollDown(){
-    this.surveyResponsesService.surveyResponsesGet(this.filterText, this.surveyId,  this.responses.length/this.pageSize, this.pageSize).subscribe(data => this.responses.push(...data))
+    let newPage = Math.floor(this.responses.length/this.pageSize) + 1;
+    if(newPage > this.page){
+      this.surveyResponsesService.surveyResponsesGet(this.filterText, this.surveyId, Math.floor(this.responses.length/this.pageSize), this.pageSize).subscribe(data => this.responses.push(...data))
+    }
   }
 
   onShowClick(content, id: number){
     this.spinner.show();
     this.surveyResponsesService.surveyResponsesIdGet(id).subscribe(data => {
       this.selectedResponse = data;
+      this.modal = this.modalService.show(content, {class: 'modal-xl'});
       this.spinner.hide();
-      this.modal = this.modalService.show(content);
     })
 
   }

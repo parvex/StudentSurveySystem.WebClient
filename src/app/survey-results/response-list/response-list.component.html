@@ -1,4 +1,4 @@
-<div
+<div class="mt-1"
 infinite-scroll
 [infiniteScrollDistance]="1"
 [infiniteScrollThrottle]="300"
@@ -20,10 +20,10 @@ infinite-scroll
         <button class="btn btn-info" (click)="onShowClick(content, response.id)"><img width="20" height="20" src="assets/icons/response.png"> Show</button>
       </td>
       <td>
-        <ngb-highlight [result]="response?.respondent" ></ngb-highlight>
+        {{response?.respondent}}
       </td>
       <td>
-        <ngb-highlight [result]="response?.date | date"></ngb-highlight>
+        {{response?.date | date}}
       </td>
     </tr>
     </tbody>

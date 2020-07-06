@@ -8,21 +8,21 @@
           <h5 class="details-label">Anonymous: </h5> <h5 class="details">{{surveyResults?.anonymous}}</h5>
       </div>
     </div>
-
-    <tabset class="nav nav-pills justify-content-center">
-      <tab>
-        <ng-template tabHeading>
-          <a><img width="40" height="40" src="assets/icons/questionresult.png"> Question results</a>
-        </ng-template>
-        <div *ngFor="let questionResult of surveyResults?.questionResults">
-          <app-question-results [questionResult]="questionResult"></app-question-results>
-        </div>
-      </tab>
-      <tab>
-        <ng-template tabHeading>
-          <a><img width="40" height="40" src="assets/icons/response.png"> Responses</a>
-        </ng-template>
-        <app-response-list [surveyId]="surveyResults.surveyId"></app-response-list>
-      </tab>
-    </tabset>
   </div>
+
+  <tabset [justified]="true" type="pills">
+    <tab>
+      <ng-template tabHeading>
+        <a><img width="40" height="40" src="assets/icons/questionresult.png"> Question results</a>
+      </ng-template>
+      <div *ngFor="let questionResult of surveyResults?.questionResults">
+        <app-question-results [questionResult]="questionResult"></app-question-results>
+      </div>
+    </tab>
+    <tab>
+      <ng-template tabHeading>
+        <a><img width="40" height="40" src="assets/icons/response.png"> Responses</a>
+      </ng-template>
+      <app-response-list [surveyId]="surveyResults?.surveyId"></app-response-list>
+    </tab>
+  </tabset>

@@ -17,6 +17,7 @@ export class SurveyListComponent implements OnInit {
   selectedSurvey: SurveyDto;
   @Input() surveyListType: SurveyListType;
   modal: BsModalRef;
+  page: number = 1;
 
   surveys: Array<SurveyListItemDto>;
   iconPath: string;
@@ -56,22 +57,28 @@ export class SurveyListComponent implements OnInit {
   }
 
   onScrollDown(){
-    this.spinner.show();
-    switch(this.surveyListType)
+    let newPage = Math.floor(this.surveys.length/this.pageSize) + 1;
+    if(newPage > this.page)
     {
-      case SurveyListType.Surveys: {
-        this.surveysService.surveysMySurveysGet(this.filterText,  this.surveys.length/this.pageSize, this.pageSize).subscribe(data => {this.surveys.push(...data); this.spinner.hide();})
-        break;
-      }
-      case SurveyListType.Results: {
-        this.surveysService.surveysMySurveysGet(this.filterText,  this.surveys.length/this.pageSize, this.pageSize).subscribe(data => {this.surveys.push(...data); this.spinner.hide();})
-        break;
-      }
-      case SurveyListType.SurveyTemplates: {
-        this.surveysService.surveysMySurveyTemplatesGet(this.filterText,  this.surveys.length/this.pageSize, this.pageSize).subscribe(data => {this.surveys.push(...data); this.spinner.hide();})
-        break;
+      this.spinner.show();
+      this.page = newPage;
+      switch(this.surveyListType)
+      {
+        case SurveyListType.Surveys: {
+          this.surveysService.surveysMySurveysGet(this.filterText, newPage, this.pageSize).subscribe(data => {this.surveys.push(...data); this.spinner.hide();})
+          break;
+        }
+        case SurveyListType.Results: {
+          this.surveysService.surveysMySurveysGet(this.filterText, newPage, this.pageSize, true).subscribe(data => {this.surveys.push(...data); this.spinner.hide();})
+          break;
+        }
+        case SurveyListType.SurveyTemplates: {
+          this.surveysService.surveysMySurveyTemplatesGet(this.filterText, newPage, this.pageSize).subscribe(data => {this.surveys.push(...data); this.spinner.hide();})
+          break;
+        }
       }
     }
+
   }
 
   onNavigate(id: number, content){

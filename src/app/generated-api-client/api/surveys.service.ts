@@ -388,13 +388,15 @@ export class SurveysService {
      * @param name 
      * @param page 
      * @param count 
+     * @param withResponses 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public surveysMySurveysGet(name?: string, page?: number, count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<SurveyListItemDto>>;
-    public surveysMySurveysGet(name?: string, page?: number, count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SurveyListItemDto>>>;
-    public surveysMySurveysGet(name?: string, page?: number, count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SurveyListItemDto>>>;
-    public surveysMySurveysGet(name?: string, page?: number, count?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public surveysMySurveysGet(name?: string, page?: number, count?: number, withResponses?: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<SurveyListItemDto>>;
+    public surveysMySurveysGet(name?: string, page?: number, count?: number, withResponses?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SurveyListItemDto>>>;
+    public surveysMySurveysGet(name?: string, page?: number, count?: number, withResponses?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SurveyListItemDto>>>;
+    public surveysMySurveysGet(name?: string, page?: number, count?: number, withResponses?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
 
 
 
@@ -408,6 +410,9 @@ export class SurveysService {
         }
         if (count !== undefined && count !== null) {
             queryParameters = queryParameters.set('count', <any>count);
+        }
+        if (withResponses !== undefined && withResponses !== null) {
+            queryParameters = queryParameters.set('withResponses', <any>withResponses);
         }
 
         let headers = this.defaultHeaders;

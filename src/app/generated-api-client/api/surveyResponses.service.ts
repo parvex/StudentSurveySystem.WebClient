@@ -183,9 +183,9 @@ export class SurveyResponsesService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public surveyResponsesIdGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<SurveyResponseDto>;
-    public surveyResponsesIdGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SurveyResponseDto>>;
-    public surveyResponsesIdGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SurveyResponseDto>>;
+    public surveyResponsesIdGet(id: number, observe?: 'body', reportProgress?: boolean): Observable<SurveyResponseDetailsDto>;
+    public surveyResponsesIdGet(id: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SurveyResponseDetailsDto>>;
+    public surveyResponsesIdGet(id: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SurveyResponseDetailsDto>>;
     public surveyResponsesIdGet(id: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
@@ -216,7 +216,7 @@ export class SurveyResponsesService {
         const consumes: string[] = [
         ];
 
-        return this.httpClient.request<SurveyResponseDto>('get',`${this.basePath}/SurveyResponses/${encodeURIComponent(String(id))}`,
+        return this.httpClient.request<SurveyResponseDetailsDto>('get',`${this.basePath}/SurveyResponses/${encodeURIComponent(String(id))}`,
             {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
