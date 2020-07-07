@@ -27,7 +27,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
-import { CommonModule } from '@angular/common';
+import { QuestionFormComponent } from './survey-form/question-form/question-form.component';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 @NgModule({
   declarations: [
@@ -42,6 +43,7 @@ import { CommonModule } from '@angular/common';
     ResponseListComponent,
     ResponseDetailsComponent,
     SurveyFormComponent,
+    QuestionFormComponent,
   ],
   imports: [
     BrowserModule,
@@ -55,6 +57,7 @@ import { CommonModule } from '@angular/common';
     NgxSpinnerModule,
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     CollapseModule.forRoot(),
     TabsModule.forRoot(),
     JwtModule.forRoot({

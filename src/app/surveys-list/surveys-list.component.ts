@@ -4,6 +4,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { SurveyListType } from './survey-list-type.enum';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ModalModule, BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
+import { SurveyFormComponent } from '../survey-form/survey-form.component';
 
 @Component({
   selector: 'app-surveys-list',
@@ -81,10 +82,9 @@ export class SurveyListComponent implements OnInit {
 
   }
 
-  onNavigate(id: number, content){
+  onNavigate(id: number){
     switch(this.surveyListType)
     {
-
       case SurveyListType.Results: {
         this.router.navigate([id], { relativeTo: this.route });
         break;
@@ -95,7 +95,7 @@ export class SurveyListComponent implements OnInit {
         this.spinner.show();
         this.surveysService.surveysIdGet(id).subscribe(data => {
           this.selectedSurvey = data;
-          this.modal = this.modalService.show(content);
+          this.modal = this.modalService.show(SurveyFormComponent, {initialState: {survey: this.selectedSurvey}, class: 'modal-xl'});
           this.spinner.hide();
         })
         break;
@@ -103,10 +103,10 @@ export class SurveyListComponent implements OnInit {
     }
   }
 
-  onAdd(content){
+  onAdd(){
     this.selectedSurvey = {} as SurveyDto;
     if(this.surveyListType === SurveyListType.SurveyTemplates)
       this.selectedSurvey.isTemplate = true;
-    this.modalService.show(content);
+    this.modalService.show(SurveyFormComponent, {initialState: {survey: this.selectedSurvey}, class: 'modal-xl'});
   }
 }

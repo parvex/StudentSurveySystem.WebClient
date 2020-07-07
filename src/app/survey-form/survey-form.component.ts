@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { SurveyDto } from '../generated-api-client';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-survey-form',
@@ -7,9 +9,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SurveyFormComponent implements OnInit {
 
-  constructor() { }
+  survey: SurveyDto;
+
+  constructor(public modal: BsModalRef) { }
 
   ngOnInit(): void {
+  }
+
+  onSave(){
+
+
   }
 
 }

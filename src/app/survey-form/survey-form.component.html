@@ -1,1 +1,74 @@
-<p>survey-form works!</p>
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Survey {{survey?.isTemplate ? 'template' : ''}} form</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form #form="ngForm" class="container">
+    <div class="form-group row">
+        <label class="col-form-label col-md-2" for="Title">Title</label>
+        <div class="col-md-10">
+            <input #Name="ngModel" [(ngModel)]="survey.name" required class="form-control" id="Title" Name="Title" type="text">
+            <div [hidden]="Name.valid || Name.pristine" class="alert alert-danger">Title is required.</div>
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-form-label col-md-2" for="EndDate">End date</label>
+        <div class="col-md-10">
+          <input #EndDate="ngModel" [(ngModel)]="survey.endDate" bsDatepicker [bsValue]="survey.endDate" class="form-control" id="EndDate" name="EndDate" type="text">
+          <div [hidden]="EndDate.valid || EndDate.pristine" class="alert alert-danger">Podaj poprawną datę.</div>
+        </div>
+    </div>
+    <div class="form-group row">
+      <div class="col-sm-2">Anonymous</div>
+      <div class="col-sm-10">
+        <div class="form-checkng">
+          <input #Anonymous="ngModel" [(ngModel)]="survey.anonymous" type="checkbox" class="form-check-input" name="Anonymous" id="Anonymous">
+        </div>
+      </div>
+    </div>
+
+    <!-- </div>
+    <div class="form-check">
+      <input #Anonymous="ngModel" [(ngModel)]="survey.anonymous" type="checkbox" class="form-check-input" name="Anonymous" id="Anonymous">
+      <label class="form-check-label" for="Anonymous">Anonymous</label>
+    </div> -->
+
+
+
+
+    <!-- <div class="form-group row">
+        <label class="col-form-label col-md-2" for="ServerHost">Adres serwera</label>
+        <div class="col-md-10">
+            <input [(ngModel)]="item.serverHost" class="form-control" id="ServerHost" name="ServerHost" type="text" value="">
+        </div>
+    </div>
+    <div class="form-group row">
+        <label class="col-form-label col-md-2" for="Port">Port serwera </label>
+        <div class="col-md-10">
+            <input #Port="ngModel" [(ngModel)]="item.port" required class="form-control" id="Port" name="Port" type="number">
+            <div [hidden]="Port.valid || Port.pristine" class="alert alert-danger">Podaj poprawny numer.</div>
+        </div>
+    </div>
+    <div class="form-group row" style="z-index: 3000;">
+        <label class="col-form-label col-md-2" for="ValidTo">Data ważności</label>
+        <div class="col-md-10">
+            <input #ValidTo="ngModel" [(ngModel)]="item.validTo" bsDatepicker [bsValue]="item.validTo" class="form-control" id="ValidTo" name="ValidTo" type="text">
+            <div [hidden]="ValidTo.valid || ValidTo.pristine" class="alert alert-danger">Podaj poprawną datę.</div>
+        </div>
+    </div>
+    <div *ngIf="item.id" class="form-group row">
+      <label class="col-form-label col-md-2" for="Status">Status</label>
+      <div class="col-md-10">
+        <select required #Status="ngModel" id="Status" class="form-control" name="Status" [(ngModel)]="item.status">
+          <option *ngFor="let status of statuses" [value]="status">{{status}}</option>
+        </select>
+        <div [hidden]="Status.valid || Status.pristine" class="alert alert-danger">Wybierz status.</div>
+      </div>
+    </div> -->
+  </form>
+
+  <hr/>
+  <button class="btn btn-primary" (click)="onSave()">Save</button>
+</div>
