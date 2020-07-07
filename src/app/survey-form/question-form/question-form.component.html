@@ -1,1 +1,92 @@
-<p>question-form works!</p>
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">Question form</h4>
+  <button type="button" class="close" aria-label="Close" (click)="modal.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form #form="ngForm" class="container">
+    <div class="form-group row">
+        <label class="col-form-label col-md-2" for="QuestionText">Question</label>
+        <div class="col-md-10">
+            <input #QuestionText="ngModel" [(ngModel)]="question.questionText" required class="form-control" id="QuestionText" name="QuestionText" type="text">
+            <div [hidden]="QuestionText.valid || QuestionText.pristine" class="alert alert-danger">Question text is required.</div>
+        </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-md-2" for="QuestionType">Question type</label>
+      <div class="col-md-10">
+        <select #QuestionType="ngModel" [(ngModel)]="question.questionType" required id="QuestionType" class="form-control" name="QuestionType">
+          <option *ngFor="let type of questionTypes" [ngValue]="type">{{type}}</option>
+        </select>
+        <div [hidden]="QuestionType.valid || QuestionType.pristine" class="alert alert-danger">Choose question type.</div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-sm-2">Integer</div>
+      <div class="col-sm-10">
+        <div class="form-check">
+          <input #Integer="ngModel" [(ngModel)]="question.validationConfig.integer" type="checkbox" class="form-check-input" name="Integer" id="Integer">
+        </div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-md-2" for="MinNumericValue">Min value</label>
+      <div class="col-md-10">
+          <input #MinNumericValue="ngModel" [(ngModel)]="question.validationConfig.minNumericValue" class="form-control" id="MinNumericValue" name="MinNumericValue" type="number">
+          <div [hidden]="MinNumericValue.valid || MinNumericValue.pristine" class="alert alert-danger">Enter valid number.</div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-md-2" for="MaxNumericValue">Max value</label>
+      <div class="col-md-10">
+          <input #MaxNumericValue="ngModel" [(ngModel)]="question.validationConfig.maxNumericValue" class="form-control" id="MaxNumericValue" name="MaxNumericValue" type="number">
+          <div [hidden]="MinNumericValue.valid || MinNumericValue.pristine" class="alert alert-danger">Enter valid number.</div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-md-2" for="DateRange">Date range</label>
+      <div class="col-md-10">
+          <input #DateRange="ngModel" bsDaterangepicker  [(ngModel)]="dateRange" class="form-control" id="DateRange" name="DateRange" type="text">
+          <div [hidden]="DateRange.valid || DateRange.pristine" class="alert alert-danger">Enter valid date range.</div>
+      </div>
+    </div>
+    <div class="form-group row">
+      <label class="col-form-label col-md-2" for="QuestionText">Regex</label>
+      <div class="col-md-10">
+          <input #Regex="ngModel" [(ngModel)]="question.validationConfig.regex" class="form-control" id="Regex" name="Regex" type="text">
+          <div [hidden]="Regex.valid || Regex.pristine" class="alert alert-danger">Regex is invalid.</div>
+      </div>
+  </div>
+
+    <button class="btn btn-info" (click)="onAddValue()">Add question</button>
+
+    <table class="table table-light">
+      <thead class="thead-dark">
+      <tr>
+        <th scope="col">Actions</th>
+        <th scope="col">Index</th>
+        <th scope="col">Question text</th>
+        <th scope="col">Question type</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let value of question.values; let i = index" style="cursor: pointer;">
+        <th scope="row">
+          <a class="action-link" (click)="onValueEditClicked(i)"><img class="list-icon" src="assets/icons/pen.png"/></a>
+          <a class="action-link" (click)="onValueDeleteClicked(i)"><img class="list-icon" src="assets/icons/delete.png"/></a>
+        </th>
+        <td>{{question.index}}</td>
+        <td>{{question.questionText}}</td>
+        <td>{{question.questionType}}</td>
+      </tr>
+
+      </tbody>
+    </table>
+  </form>
+
+
+  <hr/>
+  <button class="btn btn-primary" (click)="onSave()">Save</button>
+</div>
