@@ -93,20 +93,16 @@ export class SurveyListComponent implements OnInit {
       }
       case SurveyListType.SurveyTemplates: {
         this.spinner.show();
-        this.surveysService.surveysIdGet(id).subscribe(data => {
-          this.selectedSurvey = data;
-          this.modal = this.modalService.show(SurveyFormComponent, {initialState: {survey: this.selectedSurvey}, class: 'modal-xl'});
-          this.spinner.hide();
-        })
+        this.router.navigate(['SurveyForm', id]);
+        this.spinner.hide();
+
         break;
       }
     }
   }
 
   onAdd(){
-    this.selectedSurvey = {} as SurveyDto;
-    if(this.surveyListType === SurveyListType.SurveyTemplates)
-      this.selectedSurvey.isTemplate = true;
-    this.modalService.show(SurveyFormComponent, {initialState: {survey: this.selectedSurvey}, class: 'modal-xl'});
+    let type = this.surveyListType === SurveyListType.SurveyTemplates ? 'template' : 'survey';
+    this.router.navigate(['SurveyForm', type]);
   }
 }

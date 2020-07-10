@@ -1262,7 +1262,8 @@
             "nullable": true
           },
           "integer": {
-            "type": "boolean"
+            "type": "boolean",
+            "nullable": true
           },
           "minDateValue": {
             "type": "string",
