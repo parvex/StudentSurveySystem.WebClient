@@ -33,6 +33,7 @@ export class SurveyFormComponent implements OnInit {
   surveyForm = this.fb.group({
     name: ['', [Validators.required]],
     endDate: ['', [Validators.required]],
+    isTemplate: [false],
     anonymous:[false],
     active: [false],
     questions: [[]],
@@ -63,12 +64,11 @@ export class SurveyFormComponent implements OnInit {
         this.service.surveysIdGet(this.surveyId).subscribe(s => {
           this.survey = s;
           this.survey.endDate = new Date(this.survey.endDate);
-          this.surveyForm.patchValue(this.survey);
           this.spinner.hide();
         });
       }
     })
-
+    this.surveyForm.patchValue(this.survey);
     this.service.surveysGetSemestersAndMyCoursesGet().subscribe(x => {
       this.semesters = x
       let semester = this.semesters.find(x => x.courses.some(y => y.id == this.survey.courseId));
@@ -96,7 +96,7 @@ export class SurveyFormComponent implements OnInit {
   }
 
   onNavigateBack(){
-    if(this.surveyId == 'survey')
+    if(!this.survey.isTemplate)
       this.router.navigate(['Surveys']);
     else
       this.router.navigate(['SurveyTemplates']);

@@ -53,8 +53,6 @@ export class SurveyListComponent implements OnInit {
         break;
       }
     }
-
-    this.surveysService.surveysMySurveysGet(this.filterText, 0, this.pageSize).subscribe(data => {this.surveys = data; this.spinner.hide();})
   }
 
   onScrollDown(){
