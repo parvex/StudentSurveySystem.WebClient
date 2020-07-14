@@ -11,6 +11,16 @@ import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, Valid
 export class QuestionFormComponent implements OnInit {
 
   @Output() saved = new EventEmitter();
+  regexValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+    const questionType = control.get('questionType');
+    const regex = control.get('validationConfig.regex');
+    var isValid = true;
+    try { new RegExp(regex.value);} catch(e) {isValid = false;}
+    if((questionType?.value === QuestionType.Text) &&
+      !(isValid) )
+      return {'regex': 'Invalid'}
+    else return null;
+  }
   valuesValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     const questionType = control.get('questionType');
     const values = control.get('values');
@@ -19,24 +29,41 @@ export class QuestionFormComponent implements OnInit {
       return {'values': 'You must specify at least one value to select.'}
     else return null;
   }
+  minMaxNumericValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+    const questionType = control.get('questionType');
+    const minNumericValue = control.get('validationConfig.minNumericValue');
+    const maxNumericValue = control.get('validationConfig.maxNumericValue');
+    if(questionType?.value === QuestionType.Numeric && minNumericValue?.value
+      && maxNumericValue?.value && minNumericValue?.value > maxNumericValue?.value)
+      return {'minMaxNumeric': 'Invalid'};
+    else return null;
+  }
+  minMaxDateValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+    const questionType = control.get('questionType');
+    const minValue = control.get('validationConfig.minDateValue');
+    const maxValue = control.get('validationConfig.maxDateValue');
+    if(questionType?.value === QuestionType.Date && minValue?.value && maxValue?.value && minValue?.value > maxValue?.value)
+      return {'minMaxDate': 'Invalid'};
+    else return null;
+  }
   question: QuestionDto;
   questionTypes = Object.keys(QuestionType).map(i => QuestionType[i]);
   dateRange: Array<Date>;
   questionForm = this.fb.group({
-    index: ['', [Validators.required]],
-    questionText: ['', [Validators.required]],
-    questionType: ['', [Validators.required]],
+    index: [, [Validators.required]],
+    questionText: [, [Validators.required]],
+    questionType: [, [Validators.required]],
     values: [[]],
-    value: [''],
+    value: [],
     validationConfig: this.fb.group({
       integer: [false],
-      minNumericValue: [''],
-      maxNumericValue: [''],
-      minDateValue: [''],
-      maxDateValue: [''],
-      regex: ['']
-    })
-  }, {validators: this.valuesValidator});
+      minNumericValue: [],
+      maxNumericValue: [],
+      minDateValue: [],
+      maxDateValue: [],
+      regex: []
+    }, {validators: []})
+  }, {validators: [this.valuesValidator, this.regexValidator, this.minMaxNumericValidator, this.minMaxDateValidator]});
 
 
   get index() { return this.questionForm.get('index')}
@@ -44,7 +71,7 @@ export class QuestionFormComponent implements OnInit {
   get questionType() { return this.questionForm.get('questionType')}
   get integer() { return this.questionForm.get('validationConfig.integer')}
   get minNumericValue() { return this.questionForm.get('validationConfig.minNumericValue')}
-  get maxNumericValue() { return this.questionForm.get('questionText.maxNumericValue')}
+  get maxNumericValue() {return this.questionForm.get('validationConfig.maxNumericValue');}
   get minDateValue() { return this.questionForm.get('validationConfig.minDateValue')}
   get maxDateValue() { return this.questionForm.get('validationConfig.maxDateValue')}
   get values() { return this.questionForm.get('values')}
@@ -83,9 +110,5 @@ export class QuestionFormComponent implements OnInit {
   onSubmit(){
     this.saved.emit(this.questionForm.value);
     this.modal.hide();
-  }
-
-  isFormValid(questionForm){
-    return questionForm.form.valid && ((this.question?.questionType !== 'SingleSelect' && this.question?.questionType !== 'MultipleSelect') || this.question?.values?.length > 0)
   }
 }

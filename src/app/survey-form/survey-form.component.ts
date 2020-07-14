@@ -91,6 +91,7 @@ export class SurveyFormComponent implements OnInit {
 
   onSubmit(){
     this.semester.setValue(null);
+    console.log(this.surveyForm);
     if(this.surveyId !== 'survey' && this.surveyId!=='template'){
       this.service.surveysIdPut(this.surveyId, this.surveyForm.value).subscribe(x => {
         this.onNavigateBack();
