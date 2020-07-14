@@ -1,4 +1,5 @@
 # StudentSurveySystemWebClient
+![Deploy to Azure](https://github.com/parvex/StudentSurveySystem.WebClient/workflows/Deploy%20to%20Azure/badge.svg)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.7.
 
