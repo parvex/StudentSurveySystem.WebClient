@@ -1,34 +1,37 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build and deploy Node.js app to Azure Web App - studentsurveysystem
+name: Deploy Node.js to Azure Web App
 
 on:
-  push:
-    branches:
-      - master
+  [push]
+
+# CONFIGURATION
+# For help, go to https://github.com/Azure/Actions
+#
+# 1. Set up the following secrets in your repository:
+#   AZURE_WEBAPP_PUBLISH_PROFILE
+#
+# 2. Change these variables for your configuration:
+env:
+  AZURE_WEBAPP_NAME: studentsurveysystem   # set this to your application's name
+  AZURE_WEBAPP_PACKAGE_PATH: '.' # set this to the path to your web app project
+  NODE_VERSION: '10.x'                # set this to the node version to use
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest
-
+    name: Build and Deploy
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@master
-
-    - name: Set up Node.js version
+    - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v1
       with:
-        node-version: '12.13.0'
-
-    - name: npm install, build, and test
+        node-version: ${{ env.NODE_VERSION }}
+    - name: npm install and build
       run: |
         npm install
-        npm run build --prod
-
-    - name: 'Deploy to Azure Web App'
+        npm run build -- --prod
+    - name: 'Deploy to Azure WebApp'
       uses: azure/webapps-deploy@v1
       with:
-        app-name: 'studentsurveysystem'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_04383f02af0d4c149b22008cc333b6ea }}
-        package: ./dist
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
