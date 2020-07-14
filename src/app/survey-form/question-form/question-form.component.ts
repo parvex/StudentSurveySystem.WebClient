@@ -1,7 +1,7 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { QuestionDto, QuestionType, ValidationConfig } from 'src/app/generated-api-client';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-question-form',
@@ -11,11 +11,32 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class QuestionFormComponent implements OnInit {
 
   @Output() saved = new EventEmitter();
-
+  valuesValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+    const questionType = control.get('questionType');
+    const values = control.get('values');
+    if((questionType.value === QuestionType.SingleSelect || questionType.value === QuestionType.SingleSelect) &&
+      !(values?.value?.length > 0) )
+      return {'values': 'You must specify at least one value to select.'}
+    else return null;
+  }
   question: QuestionDto;
   questionTypes = Object.keys(QuestionType).map(i => QuestionType[i]);
   dateRange: Array<Date>;
-  questionForm: FormGroup;
+  questionForm = this.fb.group({
+    index: ['', [Validators.required]],
+    questionText: ['', [Validators.required]],
+    questionType: ['', [Validators.required]],
+    values: [[]],
+    value: [''],
+    validationConfig: this.fb.group({
+      integer: [false],
+      minNumericValue: [''],
+      maxNumericValue: [''],
+      minDateValue: [''],
+      maxDateValue: [''],
+      regex: ['']
+    })
+  }, {validators: this.valuesValidator});
 
 
   get index() { return this.questionForm.get('index')}
@@ -34,21 +55,7 @@ export class QuestionFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.questionForm = this.fb.group({
-      index: [this.question.index, [Validators.required]],
-      questionText: [this.question.questionText, [Validators.required]],
-      questionType: [this.question.questionType, [Validators.required]],
-      values: [this.question.values],
-      value: [''],
-      validationConfig: this.fb.group({
-        integer: [this.question.validationConfig.integer],
-        minNumericValue: [this.question.validationConfig.minNumericValue],
-        maxNumericValue: [this.question.validationConfig.maxNumericValue],
-        minDateValue: [this.question.validationConfig.minDateValue],
-        maxDateValue: [this.question.validationConfig.maxDateValue],
-        regex: [this.question.validationConfig.regex]
-      })
-    });
+    this.questionForm.patchValue(this.question);
   }
 
   onAddValue(){
@@ -59,14 +66,18 @@ export class QuestionFormComponent implements OnInit {
       this.values.value.push(this.value.value);
     }
     this.value.setValue(null);
+    this.values.updateValueAndValidity();
   }
 
   onValueDeleteClicked(i){
     this.values.value.splice(i, 1);
+    this.values.updateValueAndValidity();
   }
 
   onValueEditClicked(i){
 
+
+    this.values.updateValueAndValidity();
   }
 
   onSubmit(){
@@ -76,9 +87,5 @@ export class QuestionFormComponent implements OnInit {
 
   isFormValid(questionForm){
     return questionForm.form.valid && ((this.question?.questionType !== 'SingleSelect' && this.question?.questionType !== 'MultipleSelect') || this.question?.values?.length > 0)
-  }
-
-  debug(ValueError: ElementRef){
-    console.log(ValueError);
   }
 }

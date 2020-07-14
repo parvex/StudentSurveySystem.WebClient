@@ -54,6 +54,7 @@
       </div>
 
       <button class="btn btn-info" type="button" (click)="onAddQuestion()">Add question</button>
+      <div [hidden]="questions.valid" class="alert alert-danger">You must specify at least 1 question.</div>
 
       <table class="table table-light">
         <thead class="thead-dark">

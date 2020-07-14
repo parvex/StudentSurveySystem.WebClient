@@ -7,6 +7,7 @@ import { QuestionFormComponent } from './question-form/question-form.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { arrayIsNotEmptyValidator } from '../shared/shared-validators';
 
 @Component({
   selector: 'app-survey-form',
@@ -36,7 +37,7 @@ export class SurveyFormComponent implements OnInit {
     isTemplate: [false],
     anonymous:[false],
     active: [false],
-    questions: [[]],
+    questions: [[], [arrayIsNotEmptyValidator()]],
     semester: [''],
     courseId: ['', [Validators.required]],
   });
@@ -54,21 +55,22 @@ export class SurveyFormComponent implements OnInit {
       this.surveyId = p['id'];
       if(this.surveyId === 'survey'){
         this.survey.isTemplate = false;
-
+        this.surveyForm.patchValue(this.survey);
       }
       else if (this.surveyId === 'template'){
         this.survey.isTemplate = true;
+        this.surveyForm.patchValue(this.survey);
       }
       else{
         this.spinner.show();
         this.service.surveysIdGet(this.surveyId).subscribe(s => {
           this.survey = s;
           this.survey.endDate = new Date(this.survey.endDate);
+          this.surveyForm.patchValue(this.survey);
           this.spinner.hide();
         });
       }
     })
-    this.surveyForm.patchValue(this.survey);
     this.service.surveysGetSemestersAndMyCoursesGet().subscribe(x => {
       this.semesters = x
       let semester = this.semesters.find(x => x.courses.some(y => y.id == this.survey.courseId));
@@ -123,7 +125,8 @@ export class SurveyFormComponent implements OnInit {
         this.questions.value.push(q);
       else
         this.questions.value.splice(q.index-1, 0, q);
-        this.normalizeIndexes();
+
+      this.normalizeIndexes();
     })
    }
 
@@ -137,6 +140,7 @@ export class SurveyFormComponent implements OnInit {
     {
         this.questions.value[i].index = i + 1;
     }
+    this.questions.updateValueAndValidity();
   }
 
 }

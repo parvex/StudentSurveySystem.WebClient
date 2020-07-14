@@ -90,7 +90,7 @@
         <div class="col-md-2"><button class="btn btn-info" type="button" (click)="onAddValue()">Add value</button></div>
         <div class="col-md-10">
           <input [formControl]="value" placeholder="value" class="form-control" type="text">
-          <div [hidden]="values?.value?.length > 0 || value.untouched" class="alert alert-danger">You must add at laest one value.</div>
+          <div [hidden]="!questionForm.errors?.values" class="alert alert-danger">You must add at laest one value.</div>
         </div>
 
       </div>
