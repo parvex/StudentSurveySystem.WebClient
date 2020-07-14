@@ -18,11 +18,12 @@ export class SurveyResultsComponent implements OnInit {
   constructor(private route: ActivatedRoute, private surveyResponsesService: SurveyResponsesService, private spinner: NgxSpinnerService) { }
 
   ngOnInit(): void {
+    this.spinner.show();
     this.route.params.subscribe(
       (params: Params) => {
         this.id = +params['id'];
-        this.spinner.show();
-        this.surveyResponsesService.surveyResponsesSurveyResultsIdGet(this.id).subscribe(data => {this.surveyResults = data; this.spinner.hide()});
+        this.surveyResponsesService.surveyResponsesSurveyResultsIdGet(this.id)
+          .subscribe(data => {this.surveyResults = data; this.spinner.hide()});
       }
     );
   }

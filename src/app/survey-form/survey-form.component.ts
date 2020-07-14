@@ -50,33 +50,39 @@ export class SurveyFormComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.spinner.show('form');
     this.survey = { questions: []} as SurveyDto;
     this.route.params.subscribe(p => {
       this.surveyId = p['id'];
       if(this.surveyId === 'survey'){
         this.survey.isTemplate = false;
         this.surveyForm.patchValue(this.survey);
+        this.loadCourses();
       }
       else if (this.surveyId === 'template'){
         this.survey.isTemplate = true;
         this.surveyForm.patchValue(this.survey);
+        this.loadCourses();
       }
       else{
-        this.spinner.show();
         this.service.surveysIdGet(this.surveyId).subscribe(s => {
           this.survey = s;
           this.survey.endDate = new Date(this.survey.endDate);
           this.surveyForm.patchValue(this.survey);
-          this.spinner.hide();
+          this.loadCourses();
         });
       }
     })
+  }
+
+  loadCourses(){
     this.service.surveysGetSemestersAndMyCoursesGet().subscribe(x => {
       this.semesters = x
       let semester = this.semesters.find(x => x.courses.some(y => y.id == this.survey.courseId));
       this.semester.setValue(semester ?? this.semesters.slice(-1)[0]);
       this.onSemesterSelect();
-    } );
+      this.spinner.hide('form');
+    });
   }
 
   onSemesterSelect(){
