@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy Node.js app to Azure Web App - studentsurveysystem
+name: Build
 
 on:
   push:
@@ -24,11 +24,3 @@ jobs:
       run: |
         npm install
         npm run build --if-present
-
-    - name: 'Deploy to Azure Web App'
-      uses: azure/webapps-deploy@v1
-      with:
-        app-name: 'studentsurveysystem'
-        slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_ef433a50b4a748d28bea6a1dbf207bc7 }}
-        package: .
