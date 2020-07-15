@@ -1,26 +1,30 @@
-# Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
-# More GitHub Actions for Azure: https://github.com/Azure/actions
-
-name: Build
-
+name: Deploy to Azure
 on:
   push:
     branches:
       - master
+env:
+  AZURE_WEBAPP_NAME: StudentSurveySystem
+  AZURE_WEBAPP_PACKAGE_PATH: './dist'
+  NODE_VERSION: '10.x'
 
 jobs:
   build-and-deploy:
-    runs-on: windows-latest
-
+    runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@master
-
-    - name: Set up Node.js version
+    - name: Checkout
+      uses: actions/checkout@master
+    - name: Use Node.js ${{ env.NODE_VERSION }}
       uses: actions/setup-node@v1
       with:
-        node-version: '12.13.0'
-
-    - name: npm install, build, and test
-      run: |
-        npm install
-        npm run build --if-present
+        node-version: ${{ env.NODE_VERSION }}
+    - name: Install dependencies
+      run: npm install
+    - name: Build
+      run: npm run build -- --prod
+    - name: 'Deploy to Azure WebApp'
+      uses: azure/webapps-deploy@v1
+      with:
+        app-name: ${{ env.AZURE_WEBAPP_NAME }}
+        publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
+        package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
