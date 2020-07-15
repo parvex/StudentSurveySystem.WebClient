@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth/auth.service';
 import { Subscription } from 'rxjs';
-import { UsersService } from '../generated-api-client';
+import { UsersService, UserRole } from '../generated-api-client';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
@@ -13,6 +13,7 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 export class HeaderComponent implements OnInit {
   isMenuCollapsed = true;
   isAuthenticated = false;
+  role: UserRole;
   private userSub: Subscription;
   modal: BsModalRef;
 
@@ -21,6 +22,7 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.userSub = this.authService.user.subscribe(user => {
       this.isAuthenticated = this.authService.isAuthenticated();
+        this.role = user?.userRole;
     });
   }
 

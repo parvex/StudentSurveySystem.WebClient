@@ -9,7 +9,7 @@
   </button>
 
   <div [collapse]="isMenuCollapsed" [isAnimated]="true" class="collapse navbar-collapse" *ngIf="isAuthenticated">
-    <ul class="navbar-nav">
+    <ul *ngIf="role === 'Lecturer'" class="navbar-nav">
       <li routerLinkActive="active" class="nav-item">
         <a class="nav-link" routerLink="/SurveysResults"><img class="nav-icon" src="assets/icons/result.png"> Survey results</a>
       </li>

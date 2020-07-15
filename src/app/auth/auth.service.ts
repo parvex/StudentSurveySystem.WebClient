@@ -65,7 +65,11 @@ export class AuthService {
     this.user.next(user);
     this.autoLogout(expirationDuration);
     localStorage.setItem('user', JSON.stringify(user));
-    this.router.navigate(['SurveysResults']);
+    if(user.userRole === 'Lecturer')
+      this.router.navigate(['SurveysResults']);
+    else
+      this.router.navigate(['About']);
+
     this.spinner.hide();
   }
 }
