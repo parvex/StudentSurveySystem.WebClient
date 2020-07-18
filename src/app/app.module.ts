@@ -29,6 +29,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { QuestionFormComponent } from './survey-form/question-form/question-form.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { MobileAuthComponent } from './mobile-auth/mobile-auth.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     ResponseDetailsComponent,
     SurveyFormComponent,
     QuestionFormComponent,
+    MobileAuthComponent,
   ],
   imports: [
     BrowserModule,

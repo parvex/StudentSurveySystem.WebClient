@@ -45,7 +45,7 @@ export class AuthComponent implements OnInit {
 
   onUsosAuthClick() {
     this.spinner.show();
-    this.usersService.usersUsosAuthDataGet().subscribe(data => {
+    this.usersService.usersUsosAuthDataGet(true).subscribe(data => {
     this.setUsosAuth(data as UsosAuthDto);
       window.location.href = data.usosAuthUrl;
     })

@@ -8,6 +8,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { SurveyResultsComponent } from './survey-results/survey-results.component';
 import { SurveyListType } from './surveys-list/survey-list-type.enum';
 import { SurveyFormComponent } from './survey-form/survey-form.component';
+import { MobileAuthComponent } from './mobile-auth/mobile-auth.component';
 
 
 const routes: Routes = [
@@ -20,6 +21,7 @@ const routes: Routes = [
   { path: 'SurveyTemplates/:id', component: SurveyFormComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer'}},
   { path: 'About', component: AboutComponent },
   { path: 'Auth', component: AuthComponent },
+  { path: 'MobileAuth', component: MobileAuthComponent },
   { path: '**', component: NotFoundComponent }
 ];
 

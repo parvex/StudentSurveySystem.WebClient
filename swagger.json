@@ -353,7 +353,7 @@
             }
           },
           {
-            "name": "withResponses",
+            "name": "withResults",
             "in": "query",
             "schema": {
               "type": "boolean",
@@ -844,6 +844,16 @@
       "get": {
         "tags": [
           "Users"
+        ],
+        "parameters": [
+          {
+            "name": "web",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
         ],
         "responses": {
           "200": {

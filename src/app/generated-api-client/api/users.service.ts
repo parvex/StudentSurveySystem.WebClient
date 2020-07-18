@@ -208,13 +208,20 @@ export class UsersService {
     /**
      * 
      * 
+     * @param web 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public usersUsosAuthDataGet(observe?: 'body', reportProgress?: boolean): Observable<UsosAuthDto>;
-    public usersUsosAuthDataGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UsosAuthDto>>;
-    public usersUsosAuthDataGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UsosAuthDto>>;
-    public usersUsosAuthDataGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public usersUsosAuthDataGet(web?: boolean, observe?: 'body', reportProgress?: boolean): Observable<UsosAuthDto>;
+    public usersUsosAuthDataGet(web?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<UsosAuthDto>>;
+    public usersUsosAuthDataGet(web?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<UsosAuthDto>>;
+    public usersUsosAuthDataGet(web?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (web !== undefined && web !== null) {
+            queryParameters = queryParameters.set('web', <any>web);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -242,6 +249,7 @@ export class UsersService {
 
         return this.httpClient.request<UsosAuthDto>('get',`${this.basePath}/Users/UsosAuthData`,
             {
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { CurrentUserDto } from '../generated-api-client';
 import { JwtHelperService } from '@auth0/angular-jwt';
-import { throwError, BehaviorSubject } from 'rxjs';
+import { BehaviorSubject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
@@ -41,6 +41,7 @@ export class AuthService {
     this.user.next(userData);
     const expirationDuration = new Date(userData.tokenExpirationDate).getTime() - new Date().getTime();
     this.autoLogout(expirationDuration);
+    this.navigateOnLogin(userData);
   }
 
   logout() {
@@ -65,11 +66,14 @@ export class AuthService {
     this.user.next(user);
     this.autoLogout(expirationDuration);
     localStorage.setItem('user', JSON.stringify(user));
+    this.navigateOnLogin(user);
+    this.spinner.hide();
+  }
+
+  navigateOnLogin(user: CurrentUserDto){
     if(user.userRole === 'Lecturer')
       this.router.navigate(['SurveysResults']);
     else
       this.router.navigate(['About']);
-
-    this.spinner.hide();
   }
 }
