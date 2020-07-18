@@ -12,7 +12,7 @@ import { MobileAuthComponent } from './mobile-auth/mobile-auth.component';
 
 
 const routes: Routes = [
-  { path: '', component: AuthComponent},
+  { path: '', component: AboutComponent, canActivate:[AuthGuard]},
   { path: 'About', component: AboutComponent },
   { path: 'Auth', component: AuthComponent },
   { path: 'MobileAuth', component: MobileAuthComponent },
