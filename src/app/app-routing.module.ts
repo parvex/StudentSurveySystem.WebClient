@@ -12,16 +12,16 @@ import { MobileAuthComponent } from './mobile-auth/mobile-auth.component';
 
 
 const routes: Routes = [
-  { path: '', component: AboutComponent, canActivate:[AuthGuard]},
+  { path: '', component: AuthComponent},
+  { path: 'About', component: AboutComponent },
+  { path: 'Auth', component: AuthComponent },
+  { path: 'MobileAuth', component: MobileAuthComponent },
   { path: 'SurveysResults', component: SurveyListComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer', surveyListType: SurveyListType.Results}},
   { path: 'SurveysResults/:id', component: SurveyResultsComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer'}},
   { path: 'Surveys', component: SurveyListComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer', surveyListType: SurveyListType.Surveys}},
   { path: 'SurveyForm/:id', component: SurveyFormComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer'}},
   { path: 'SurveyTemplates', component: SurveyListComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer', surveyListType: SurveyListType.SurveyTemplates}},
   { path: 'SurveyTemplates/:id', component: SurveyFormComponent, canActivate:[AuthGuard], data: { expectedRole: 'Lecturer'}},
-  { path: 'About', component: AboutComponent },
-  { path: 'Auth', component: AuthComponent },
-  { path: 'MobileAuth', component: MobileAuthComponent },
   { path: '**', component: NotFoundComponent }
 ];
 

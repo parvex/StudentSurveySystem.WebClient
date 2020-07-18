@@ -10,8 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
   styleUrls: ['./auth.component.scss']
 })
 export class AuthComponent implements OnInit {
-
-
+  
   setUsosAuth(usosAuth: UsosAuthDto){
     localStorage.setItem("usosAuth", JSON.stringify(usosAuth));
   }

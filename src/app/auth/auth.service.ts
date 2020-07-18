@@ -41,7 +41,6 @@ export class AuthService {
     this.user.next(userData);
     const expirationDuration = new Date(userData.tokenExpirationDate).getTime() - new Date().getTime();
     this.autoLogout(expirationDuration);
-    this.navigateOnLogin(userData);
   }
 
   logout() {
