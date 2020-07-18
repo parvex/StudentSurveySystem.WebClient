@@ -28,6 +28,7 @@ export class AuthComponent implements OnInit {
       const oauthToken = params['oauth_token'];
       const oauthVerifier = params['oauth_verifier'];
       if(!!oauthVerifier){
+        this.spinner.show();
         const usosAuth = this.getUsosAuth();
         usosAuth.oAuthVerifier = oauthVerifier;
         this.clearUsosAuth();
