@@ -30,6 +30,11 @@ export class SurveyFormComponent implements OnInit {
   get semester() { return this.surveyForm.get('semester');}
   get courseId() { return this.surveyForm.get('courseId');}
   get questions() { return this.surveyForm.get('questions');}
+  get formValue() {
+    let value = this.surveyForm.value;
+    value.semester = null;
+    return value;
+  }
 
   surveyForm = this.fb.group({
     name: ['', [Validators.required]],
@@ -90,12 +95,10 @@ export class SurveyFormComponent implements OnInit {
   }
 
   onSubmit(){
-    this.semester.setValue(null);
-    console.log(this.surveyForm);
     if(this.surveyId !== 'survey' && this.surveyId!=='template'){
-      this.service.surveysIdPut(this.surveyId, this.surveyForm.value).subscribe(x => {
+      this.service.surveysIdPut(this.surveyId, this.formValue).subscribe(x => {
         this.onNavigateBack();
-      });
+      }, error => {console.log(error)});
     }
     else{
       this.service.surveysPost(this.surveyForm.value).subscribe(x => {
@@ -113,7 +116,7 @@ export class SurveyFormComponent implements OnInit {
 
   onAddQuestion(){
     let question = { index: this.survey.questions.length+1 ,validationConfig: {} as ValidationConfig} as QuestionDto;
-    this.questionModalRef = this.modalService.show(QuestionFormComponent, {initialState: {question: question}, class: 'modal-xl'})
+    this.questionModalRef = this.modalService.show(QuestionFormComponent, {initialState: {question: question, questions: this.questions.value}, class: 'modal-xl'})
     this.questionModalRef.content.saved.subscribe(q => {
       if(q.index > this.questions.value.length)
         this.questions.value.push(q);
@@ -125,7 +128,7 @@ export class SurveyFormComponent implements OnInit {
 
   onQuestionEditClicked(id){
     let question = this.survey.questions[id];
-    this.questionModalRef = this.modalService.show(QuestionFormComponent, {initialState: {question: question} , class: 'modal-xl'})
+    this.questionModalRef = this.modalService.show(QuestionFormComponent, {initialState: {question: question, questions: this.questions.value} , class: 'modal-xl'})
     this.questionModalRef.content.saved.subscribe(q => {
       this.survey.questions.splice(id, 1);
       if(q.index > this.survey.questions.length)
@@ -148,6 +151,14 @@ export class SurveyFormComponent implements OnInit {
         this.questions.value[i].index = i + 1;
     }
     this.questions.updateValueAndValidity();
+  }
+
+  onCreateSurveyFromTemplateClick(){
+    this.spinner.show();
+    this.service.surveysStartSurveyFromTemplatePost(this.formValue).subscribe(() => {
+      this.onNavigateBack();
+      this.spinner.hide();
+    })
   }
 
 }
