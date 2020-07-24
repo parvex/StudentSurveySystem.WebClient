@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { SurveysService, SurveyListItemDto, SurveyDto } from '../generated-api-client';
+import { SurveysService, SurveyListItemDto, SurveyDto, SurveyStatus, SurveyResponsesService } from '../generated-api-client';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { SurveyListType } from './survey-list-type.enum';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -26,6 +26,7 @@ export class SurveyListComponent implements OnInit {
     private spinner : NgxSpinnerService,
      private route: ActivatedRoute,
      private router: Router,
+     private responsesService: SurveyResponsesService,
      private modalService: BsModalService) {}
 
   ngOnInit(): void {
@@ -68,7 +69,7 @@ export class SurveyListComponent implements OnInit {
           break;
         }
         case SurveyListType.Results: {
-          this.surveysService.surveysMySurveysGet(this.filterText, newPage, this.pageSize, true).subscribe(data => {this.surveys.push(...data); this.spinner.hide();})
+          this.responsesService.surveyResponsesMySurveyResultsGet(this.filterText, newPage, this.pageSize).subscribe(data => {this.surveys.push(...data); this.spinner.hide();})
           break;
         }
         case SurveyListType.SurveyTemplates: {
@@ -80,7 +81,7 @@ export class SurveyListComponent implements OnInit {
 
   }
 
-  onNavigate(id: number){
+  onNavigate(id: number, status: SurveyStatus){
     switch(this.surveyListType)
     {
       case SurveyListType.Results: {
@@ -90,10 +91,11 @@ export class SurveyListComponent implements OnInit {
       case SurveyListType.Surveys: {
       }
       case SurveyListType.SurveyTemplates: {
-        this.spinner.show();
-        this.router.navigate(['SurveyForm', id]);
-        this.spinner.hide();
-
+        if(status === 'Draft'){
+          this.spinner.show();
+          this.router.navigate(['SurveyForm', id]);
+          this.spinner.hide();
+        }
         break;
       }
     }

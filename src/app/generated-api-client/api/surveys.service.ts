@@ -204,18 +204,25 @@ export class SurveysService {
      * 
      * @param id 
      * @param body 
+     * @param activate 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public surveysIdPut(id: number, body?: SurveyDto, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public surveysIdPut(id: number, body?: SurveyDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public surveysIdPut(id: number, body?: SurveyDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
-    public surveysIdPut(id: number, body?: SurveyDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public surveysIdPut(id: number, body?: SurveyDto, activate?: boolean, observe?: 'body', reportProgress?: boolean): Observable<any>;
+    public surveysIdPut(id: number, body?: SurveyDto, activate?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
+    public surveysIdPut(id: number, body?: SurveyDto, activate?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public surveysIdPut(id: number, body?: SurveyDto, activate?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
         if (id === null || id === undefined) {
             throw new Error('Required parameter id was null or undefined when calling surveysIdPut.');
         }
 
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (activate !== undefined && activate !== null) {
+            queryParameters = queryParameters.set('activate', <any>activate);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -248,6 +255,7 @@ export class SurveysService {
         return this.httpClient.request<any>('put',`${this.basePath}/Surveys/${encodeURIComponent(String(id))}`,
             {
                 body: body,
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -388,15 +396,13 @@ export class SurveysService {
      * @param name 
      * @param page 
      * @param count 
-     * @param withResults 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public surveysMySurveysGet(name?: string, page?: number, count?: number, withResults?: boolean, observe?: 'body', reportProgress?: boolean): Observable<Array<SurveyListItemDto>>;
-    public surveysMySurveysGet(name?: string, page?: number, count?: number, withResults?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SurveyListItemDto>>>;
-    public surveysMySurveysGet(name?: string, page?: number, count?: number, withResults?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SurveyListItemDto>>>;
-    public surveysMySurveysGet(name?: string, page?: number, count?: number, withResults?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
-
+    public surveysMySurveysGet(name?: string, page?: number, count?: number, observe?: 'body', reportProgress?: boolean): Observable<Array<SurveyListItemDto>>;
+    public surveysMySurveysGet(name?: string, page?: number, count?: number, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SurveyListItemDto>>>;
+    public surveysMySurveysGet(name?: string, page?: number, count?: number, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SurveyListItemDto>>>;
+    public surveysMySurveysGet(name?: string, page?: number, count?: number, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
 
@@ -410,9 +416,6 @@ export class SurveysService {
         }
         if (count !== undefined && count !== null) {
             queryParameters = queryParameters.set('count', <any>count);
-        }
-        if (withResults !== undefined && withResults !== null) {
-            queryParameters = queryParameters.set('withResults', <any>withResults);
         }
 
         let headers = this.defaultHeaders;
@@ -454,14 +457,21 @@ export class SurveysService {
      * 
      * 
      * @param body 
+     * @param activate 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public surveysPost(body?: SurveyDto, observe?: 'body', reportProgress?: boolean): Observable<SurveyDto>;
-    public surveysPost(body?: SurveyDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SurveyDto>>;
-    public surveysPost(body?: SurveyDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SurveyDto>>;
-    public surveysPost(body?: SurveyDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public surveysPost(body?: SurveyDto, activate?: boolean, observe?: 'body', reportProgress?: boolean): Observable<SurveyDto>;
+    public surveysPost(body?: SurveyDto, activate?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SurveyDto>>;
+    public surveysPost(body?: SurveyDto, activate?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SurveyDto>>;
+    public surveysPost(body?: SurveyDto, activate?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (activate !== undefined && activate !== null) {
+            queryParameters = queryParameters.set('activate', <any>activate);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -497,6 +507,7 @@ export class SurveysService {
         return this.httpClient.request<SurveyDto>('post',`${this.basePath}/Surveys`,
             {
                 body: body,
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,
@@ -509,14 +520,21 @@ export class SurveysService {
      * 
      * 
      * @param body 
+     * @param activate 
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public surveysPut(body?: SurveyDto, observe?: 'body', reportProgress?: boolean): Observable<SurveyDto>;
-    public surveysPut(body?: SurveyDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SurveyDto>>;
-    public surveysPut(body?: SurveyDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SurveyDto>>;
-    public surveysPut(body?: SurveyDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+    public surveysPut(body?: SurveyDto, activate?: boolean, observe?: 'body', reportProgress?: boolean): Observable<SurveyDto>;
+    public surveysPut(body?: SurveyDto, activate?: boolean, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SurveyDto>>;
+    public surveysPut(body?: SurveyDto, activate?: boolean, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SurveyDto>>;
+    public surveysPut(body?: SurveyDto, activate?: boolean, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
+
+
+        let queryParameters = new HttpParams({encoder: new CustomHttpUrlEncodingCodec()});
+        if (activate !== undefined && activate !== null) {
+            queryParameters = queryParameters.set('activate', <any>activate);
+        }
 
         let headers = this.defaultHeaders;
 
@@ -552,6 +570,7 @@ export class SurveysService {
         return this.httpClient.request<SurveyDto>('put',`${this.basePath}/Surveys`,
             {
                 body: body,
+                params: queryParameters,
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

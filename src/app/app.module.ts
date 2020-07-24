@@ -30,6 +30,8 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { QuestionFormComponent } from './survey-form/question-form/question-form.component';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { MobileAuthComponent } from './mobile-auth/mobile-auth.component';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -58,6 +60,7 @@ import { MobileAuthComponent } from './mobile-auth/mobile-auth.component';
     NgxChartsModule,
     BrowserAnimationsModule,
     NgxSpinnerModule,
+    ToastrModule.forRoot(),
     BsDropdownModule.forRoot(),
     ModalModule.forRoot(),
     BsDatepickerModule.forRoot(),

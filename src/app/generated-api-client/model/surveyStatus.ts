@@ -9,16 +9,11 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { SurveyStatus } from './surveyStatus';
 
-export interface SurveyListItemDto { 
-    id?: number;
-    name?: string;
-    active?: boolean;
-    isTemplate?: boolean;
-    anonymous?: boolean;
-    courseName?: string;
-    creatorName?: string;
-    endDate?: Date;
-    status?: SurveyStatus;
-}
+export type SurveyStatus = 'Draft' | 'Active' | 'Ended';
+
+export const SurveyStatus = {
+    Draft: 'Draft' as SurveyStatus,
+    Active: 'Active' as SurveyStatus,
+    Ended: 'Ended' as SurveyStatus
+};

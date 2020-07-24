@@ -22,11 +22,11 @@ export class SurveyFormComponent implements OnInit {
   courses: Subject<Array<CourseDto>>;
   deleteModalRef: BsModalRef;
   questionModalRef: BsModalRef;
+  minDate: Date;
 
   get name() { return this.surveyForm.get('name');}
   get endDate() { return this.surveyForm.get('endDate');}
   get anonymous() { return this.surveyForm.get('anonymous');}
-  get active() { return this.surveyForm.get('active');}
   get semester() { return this.surveyForm.get('semester');}
   get courseId() { return this.surveyForm.get('courseId');}
   get questions() { return this.surveyForm.get('questions');}
@@ -41,7 +41,6 @@ export class SurveyFormComponent implements OnInit {
     endDate: ['', [Validators.required]],
     isTemplate: [false],
     anonymous:[false],
-    active: [false],
     questions: [[], [arrayIsNotEmptyValidator()]],
     semester: [''],
     courseId: ['', [Validators.required]],
@@ -55,6 +54,10 @@ export class SurveyFormComponent implements OnInit {
     private router: Router) { }
 
   ngOnInit(): void {
+    this.minDate = new Date();
+    this.minDate.setDate(new Date().getDate() + 1);
+    this.minDate.setHours(0, 0 ,0, 0);
+    
     this.spinner.show('form');
     this.survey = { questions: []} as SurveyDto;
     this.route.params.subscribe(p => {
@@ -94,14 +97,14 @@ export class SurveyFormComponent implements OnInit {
     this.courses = this.semester.value.courses;
   }
 
-  onSubmit(){
+  onSubmit(activate: boolean){
     if(this.surveyId !== 'survey' && this.surveyId!=='template'){
-      this.service.surveysIdPut(this.surveyId, this.formValue).subscribe(x => {
+      this.service.surveysIdPut(this.surveyId, this.formValue, activate).subscribe(x => {
         this.onNavigateBack();
       }, error => {console.log(error)});
     }
     else{
-      this.service.surveysPost(this.surveyForm.value).subscribe(x => {
+      this.service.surveysPost(this.surveyForm.value, activate).subscribe(x => {
         this.onNavigateBack();
       });
     }

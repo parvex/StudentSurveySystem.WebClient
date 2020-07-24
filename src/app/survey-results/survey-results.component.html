@@ -23,6 +23,6 @@
       <ng-template tabHeading>
         <a><img width="40" height="40" src="assets/icons/response.png"> Responses</a>
       </ng-template>
-      <app-response-list [surveyId]="surveyResults?.surveyId"></app-response-list>
+      <app-response-list *ngIf="surveyResults?.surveyId" [surveyId]="surveyResults?.surveyId"></app-response-list>
     </tab>
   </tabset>

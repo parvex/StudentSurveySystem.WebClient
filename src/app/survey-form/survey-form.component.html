@@ -14,7 +14,7 @@
       <div class="form-group row">
           <label class="col-form-label col-md-2" for="EndDate">End date</label>
           <div class="col-md-10">
-            <input [formControl]="endDate" bsDatepicker class="form-control" type="text">
+            <input [minDate]="minDate" [formControl]="endDate" bsDatepicker class="form-control" type="text">
             <div [hidden]="endDate.valid || endDate.untouched" class="alert alert-danger">Podaj poprawną datę.</div>
           </div>
       </div>
@@ -23,14 +23,6 @@
         <div class="col-sm-10">
           <div class="form-check">
             <input [formControl]="anonymous" type="checkbox" class="form-check-input">
-          </div>
-        </div>
-      </div>
-      <div class="form-group row">
-        <div class="col-sm-2">Is active</div>
-        <div class="col-sm-10">
-          <div class="form-check">
-            <input [formControl]="active" type="checkbox" class="form-check-input">
           </div>
         </div>
       </div>
@@ -77,7 +69,8 @@
 
         </tbody>
       </table>
-      <button class="btn btn-primary" [disabled]="surveyForm.invalid" type="submit">Save</button>
+      <button class="btn btn-primary" (click)="onSubmit(false)" [disabled]="surveyForm.invalid" type="button">Save</button>
+      <button class="btn btn-primary ml-2" *ngIf="!survey?.isTemplate" (click)="onSubmit(true)" [disabled]="surveyForm.invalid" type="button">Activate survey</button>
       <button class="btn btn-primary ml-2" *ngIf="survey?.isTemplate" [disabled]="surveyForm.invalid" (click)="onCreateSurveyFromTemplateClick()" [disabled]="surveyForm.invalid" type="button">Create survey from template</button>
     </form>
 

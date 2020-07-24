@@ -18,6 +18,7 @@ export * from './surveyResponseDetailsDto';
 export * from './surveyResponseDto';
 export * from './surveyResponseListItemDto';
 export * from './surveyResultsDto';
+export * from './surveyStatus';
 export * from './user';
 export * from './userRole';
 export * from './usosAuthDto';

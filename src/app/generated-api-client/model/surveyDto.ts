@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { QuestionDto } from './questionDto';
+import { SurveyStatus } from './surveyStatus';
 
 export interface SurveyDto { 
     id?: number;
@@ -24,4 +25,5 @@ export interface SurveyDto {
     creatorName?: string;
     endDate?: Date;
     readonly today?: Date;
+    status?: SurveyStatus;
 }

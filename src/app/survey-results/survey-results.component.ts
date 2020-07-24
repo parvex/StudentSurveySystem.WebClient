@@ -23,7 +23,8 @@ export class SurveyResultsComponent implements OnInit {
       (params: Params) => {
         this.id = +params['id'];
         this.surveyResponsesService.surveyResponsesSurveyResultsIdGet(this.id)
-          .subscribe(data => {this.surveyResults = data; this.spinner.hide()});
+          .subscribe(data => {
+            this.surveyResults = data; this.spinner.hide()});
       }
     );
   }

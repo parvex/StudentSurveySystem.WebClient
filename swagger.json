@@ -10,6 +10,73 @@
     }
   ],
   "paths": {
+    "/SurveyResponses/MySurveyResults": {
+      "get": {
+        "tags": [
+          "SurveyResponses"
+        ],
+        "parameters": [
+          {
+            "name": "name",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "default": "",
+              "nullable": true
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 0
+            }
+          },
+          {
+            "name": "count",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32",
+              "default": 20
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SurveyListItemDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SurveyListItemDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SurveyListItemDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/SurveyResponses": {
       "get": {
         "tags": [
@@ -351,14 +418,6 @@
               "format": "int32",
               "default": 20
             }
-          },
-          {
-            "name": "withResults",
-            "in": "query",
-            "schema": {
-              "type": "boolean",
-              "default": false
-            }
           }
         ],
         "responses": {
@@ -580,6 +639,14 @@
               "type": "integer",
               "format": "int32"
             }
+          },
+          {
+            "name": "activate",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
           }
         ],
         "requestBody": {
@@ -634,6 +701,16 @@
         "tags": [
           "Surveys"
         ],
+        "parameters": [
+          {
+            "name": "activate",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
         "requestBody": {
           "content": {
             "application/json": {
@@ -679,6 +756,16 @@
       "post": {
         "tags": [
           "Surveys"
+        ],
+        "parameters": [
+          {
+            "name": "activate",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
         ],
         "requestBody": {
           "content": {
@@ -982,6 +1069,53 @@
   },
   "components": {
     "schemas": {
+      "SurveyStatus": {
+        "enum": [
+          "Draft",
+          "Active",
+          "Ended"
+        ],
+        "type": "string"
+      },
+      "SurveyListItemDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "active": {
+            "type": "boolean"
+          },
+          "isTemplate": {
+            "type": "boolean"
+          },
+          "anonymous": {
+            "type": "boolean"
+          },
+          "courseName": {
+            "type": "string",
+            "nullable": true
+          },
+          "creatorName": {
+            "type": "string",
+            "nullable": true
+          },
+          "endDate": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/SurveyStatus"
+          }
+        },
+        "additionalProperties": false
+      },
       "SurveyResponseListItemDto": {
         "type": "object",
         "properties": {
@@ -1222,42 +1356,6 @@
         },
         "additionalProperties": false
       },
-      "SurveyListItemDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32",
-            "nullable": true
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "active": {
-            "type": "boolean"
-          },
-          "isTemplate": {
-            "type": "boolean"
-          },
-          "anonymous": {
-            "type": "boolean"
-          },
-          "courseName": {
-            "type": "string",
-            "nullable": true
-          },
-          "creatorName": {
-            "type": "string",
-            "nullable": true
-          },
-          "endDate": {
-            "type": "string",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false
-      },
       "ValidationConfig": {
         "type": "object",
         "properties": {
@@ -1385,6 +1483,9 @@
             "type": "string",
             "format": "date-time",
             "readOnly": true
+          },
+          "status": {
+            "$ref": "#/components/schemas/SurveyStatus"
           }
         },
         "additionalProperties": false

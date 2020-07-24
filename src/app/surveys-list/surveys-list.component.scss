@@ -1,0 +1,14 @@
+.draft{
+    cursor: pointer !important;
+    background-color: white;
+}
+
+.active{
+    cursor: default !important;
+    background-color: rgb(156, 255, 153);
+}
+
+.ended{
+    cursor: default !important;
+    background-color: rgb(199, 199, 199);
+}

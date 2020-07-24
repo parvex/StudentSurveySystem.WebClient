@@ -19,14 +19,14 @@ infinite-scroll
       <th scope="col"></th>
       <th scope="col">Title</th>
       <th scope="col">Course</th>
-      <th scope="col">Active</th>
       <th scope="col">End date</th>
       <th scope="col">Anonymous</th>
+      <th scope="col">Status</th>
     </tr>
     </thead>
     <tbody>
 
-    <tr *ngFor="let survey of surveys" style="cursor: pointer;" (click)="onNavigate(survey.id)">
+    <tr *ngFor="let survey of surveys" style="cursor: pointer" [ngClass]="{draft: surveyListType !== 0 && survey.status === 'Draft', active:  surveyListType !== 0 && survey.status === 'Active', ended:  surveyListType !== 0 && survey.status ==='Ended' }" (click)="onNavigate(survey.id, survey.status)">
       <th scope="row">
         <img *ngIf="surveyListType===0" class="list-icon" src="assets/icons/result.png">
         <img *ngIf="surveyListType===1" class="list-icon" src="assets/icons/surveyicon.png">
@@ -34,9 +34,9 @@ infinite-scroll
       </th>
       <td>{{survey.name}}</td>
       <td>{{survey.courseName}}</td>
-      <td>{{survey.active}}</td>
       <td>{{survey.endDate | date}}</td>
       <td>{{survey.anonymous}}</td>
+      <td>{{survey.status}}</td>
     </tr>
 
     </tbody>
