@@ -37,6 +37,7 @@ export class SurveyFormComponent implements OnInit {
   }
 
   surveyForm = this.fb.group({
+    id: [''],
     name: ['', [Validators.required]],
     endDate: ['', [Validators.required]],
     isTemplate: [false],
@@ -98,6 +99,8 @@ export class SurveyFormComponent implements OnInit {
   }
 
   onSubmit(activate: boolean){
+    let formValue = this.formValue;
+    formValue.endDate.setHours(23, 59, 59, 999);
     if(this.surveyId !== 'survey' && this.surveyId!=='template'){
       this.service.surveysIdPut(this.surveyId, this.formValue, activate).subscribe(x => {
         this.onNavigateBack();

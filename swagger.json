@@ -158,6 +158,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyResponseDto"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SurveyResponseDto"
@@ -651,6 +656,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyDto"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SurveyDto"
@@ -713,6 +723,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyDto"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SurveyDto"
@@ -769,6 +784,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyDto"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SurveyDto"
@@ -817,6 +837,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SurveyDto"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/SurveyDto"
@@ -886,6 +911,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/AuthenticateDto"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/AuthenticateDto"
@@ -973,6 +1003,11 @@
         ],
         "requestBody": {
           "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UsosAuthDto"
+              }
+            },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UsosAuthDto"

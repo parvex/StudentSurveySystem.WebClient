@@ -3,7 +3,7 @@
     <h4 class="modal-title" id="modal-basic-title">Survey {{survey?.isTemplate ? 'template' : ''}} form</h4>
   </div>
   <div class="modal-body">
-    <form (ngSubmit)="onSubmit()" [formGroup]="surveyForm" class="container">
+    <form [formGroup]="surveyForm" class="container">
       <div class="form-group row">
           <label class="col-form-label col-md-2" for="Title">Title</label>
           <div class="col-md-10">

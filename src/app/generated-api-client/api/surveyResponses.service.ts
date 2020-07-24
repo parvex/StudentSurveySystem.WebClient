@@ -388,6 +388,7 @@ export class SurveyResponsesService {
 
         // to determine the Content-Type header
         const consumes: string[] = [
+            'application/json-patch+json',
             'application/json',
             'text/json',
             'application/_*+json'
