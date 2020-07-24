@@ -14,7 +14,7 @@
       <div class="form-group row">
           <label class="col-form-label col-md-2" for="EndDate">End date</label>
           <div class="col-md-10">
-            <input [minDate]="minDate" [formControl]="endDate" bsDatepicker class="form-control" type="text">
+            <input [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [minDate]="minDate" [formControl]="endDate" bsDatepicker class="form-control" type="text">
             <div [hidden]="endDate.valid || endDate.untouched" class="alert alert-danger">Podaj poprawną datę.</div>
           </div>
       </div>
@@ -58,13 +58,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let question of survey.questions; let i = index" style="cursor: pointer;" (click)="onQuestionEditClicked(i)">
+        <tr *ngFor="let question of survey.questions; let i = index">
           <th scope="row">
-            <a class="action-link" (click)="onQuestionDeleteClicked(question.id)"><img class="list-icon" src="assets/icons/delete.png"/></a>
+            <a (click)="onQuestionDeleteClicked(i)"  class="action-link"><img class="list-icon" src="assets/icons/delete.png"/></a>
           </th>
-          <td>{{question.index}}</td>
-          <td>{{question.questionText}}</td>
-          <td>{{question.questionType}}</td>
+          <td style="cursor: pointer;" (click)="onQuestionEditClicked(i)">{{question.index}}</td>
+          <td style="cursor: pointer;" (click)="onQuestionEditClicked(i)">{{question.questionText}}</td>
+          <td style="cursor: pointer;" (click)="onQuestionEditClicked(i)">{{question.questionType}}</td>
         </tr>
 
         </tbody>

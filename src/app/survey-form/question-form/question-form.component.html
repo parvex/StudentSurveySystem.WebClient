@@ -59,7 +59,7 @@
         <div class="form-group row">
           <label class="col-form-label col-md-2" for="MinDate">Min date</label>
           <div class="col-md-8">
-            <input bsDatepicker  [formControl]="minDateValue" class="form-control" type="text">
+            <input  bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [formControl]="minDateValue" class="form-control" type="text">
           </div>
           <div class="col-md-2">
             <button class="btn btn-info" style="width: 100%;" type="button" (click)="minDateValue.setValue(null)">Clear</button>
@@ -69,7 +69,7 @@
         <div class="form-group row">
           <label class="col-form-label col-md-2" for="MaxDate">Max date</label>
           <div class="col-md-8">
-            <input bsDatepicker [formControl]="maxDateValue" class="form-control"  type="text">
+            <input bsDatepicker [bsConfig]="{ dateInputFormat: 'DD/MM/YYYY' }" [formControl]="maxDateValue" class="form-control"  type="text">
           </div>
           <div class="col-md-2">
             <button class="btn btn-info" style="width: 100%;" type="button" (click)="maxDateValue.setValue(null)">Clear</button>

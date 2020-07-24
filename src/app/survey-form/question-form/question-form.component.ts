@@ -82,6 +82,10 @@ export class QuestionFormComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    if(this.question?.validationConfig?.minDateValue && !(this.question.validationConfig.minDateValue instanceof Date))
+      this.question.validationConfig.minDateValue = new Date(this.question.validationConfig.minDateValue);
+    if(this.question?.validationConfig?.maxDateValue && !(this.question.validationConfig.maxDateValue instanceof Date))
+      this.question.validationConfig.maxDateValue = new Date(this.question.validationConfig.maxDateValue);
     this.questionForm.patchValue(this.question);
   }
 
