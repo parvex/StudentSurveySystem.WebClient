@@ -13,6 +13,7 @@ export * from './questionType';
 export * from './semester';
 export * from './semesterDto';
 export * from './statistics';
+export * from './stringDoubleNullableValueTuple';
 export * from './surveyDto';
 export * from './surveyListItemDto';
 export * from './surveyResponseDetailsDto';

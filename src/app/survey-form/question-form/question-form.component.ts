@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { QuestionDto, QuestionType, ValidationConfig } from 'src/app/generated-api-client';
+import { QuestionDto, QuestionType, ValidationConfig, StringDoubleNullableValueTuple } from 'src/app/generated-api-client';
 import { FormBuilder, FormGroup, Validators, ValidatorFn, AbstractControl, ValidationErrors } from '@angular/forms';
 
 @Component({
@@ -24,7 +24,7 @@ export class QuestionFormComponent implements OnInit {
   valuesValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
     const questionType = control.get('questionType');
     const values = control.get('values');
-    if((questionType.value === QuestionType.SingleSelect || questionType.value === QuestionType.SingleSelect) &&
+    if((questionType.value === QuestionType.SingleSelect || questionType.value === QuestionType.MultipleSelect || questionType.value === QuestionType.ValuedSingleSelect) &&
       !(values?.value?.length > 0) )
       return {'values': 'You must specify at least one value to select.'}
     else return null;
@@ -54,7 +54,8 @@ export class QuestionFormComponent implements OnInit {
     questionText: [, [Validators.required]],
     questionType: [, [Validators.required]],
     values: [[]],
-    value: [],
+    selectText: [],
+    selectValue: [],
     validationConfig: this.fb.group({
       integer: [false],
       minNumericValue: [],
@@ -75,7 +76,8 @@ export class QuestionFormComponent implements OnInit {
   get minDateValue() { return this.questionForm.get('validationConfig.minDateValue')}
   get maxDateValue() { return this.questionForm.get('validationConfig.maxDateValue')}
   get values() { return this.questionForm.get('values')}
-  get value() { return this.questionForm.get('value')}
+  get selectValue() { return this.questionForm.get('selectValue')}
+  get selectText() { return this.questionForm.get('selectText')}
   get regex() { return this.questionForm.get('validationConfig.regex')}
 
   constructor(public modal: BsModalRef, private fb: FormBuilder) {
@@ -90,13 +92,14 @@ export class QuestionFormComponent implements OnInit {
   }
 
   onAddValue(){
-    if(this.value.value){
+    if(this.selectValue.value && (this.questionType.value !== 'ValuedSingleSelect' || this.selectText.value)){
       if(!this.values.value){
         this.values.setValue([]);
       }
-      this.values.value.push(this.value.value);
+      this.values.value.push({item1: this.selectText.value, item2: this.selectValue.value} as StringDoubleNullableValueTuple);
     }
-    this.value.setValue(null);
+    this.selectValue.setValue(null);
+    this.selectText.setValue(null);
     this.values.updateValueAndValidity();
   }
 

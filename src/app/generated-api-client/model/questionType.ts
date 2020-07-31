@@ -10,7 +10,7 @@
  * Do not edit the class manually.
  */
 
-export type QuestionType = 'Text' | 'SingleSelect' | 'MultipleSelect' | 'Numeric' | 'Date' | 'Boolean';
+export type QuestionType = 'Text' | 'SingleSelect' | 'MultipleSelect' | 'Numeric' | 'Date' | 'Boolean' | 'ValuedSingleSelect';
 
 export const QuestionType = {
     Text: 'Text' as QuestionType,
@@ -18,5 +18,6 @@ export const QuestionType = {
     MultipleSelect: 'MultipleSelect' as QuestionType,
     Numeric: 'Numeric' as QuestionType,
     Date: 'Date' as QuestionType,
-    Boolean: 'Boolean' as QuestionType
+    Boolean: 'Boolean' as QuestionType,
+    ValuedSingleSelect: 'ValuedSingleSelect' as QuestionType
 };

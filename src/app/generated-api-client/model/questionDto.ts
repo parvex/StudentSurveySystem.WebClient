@@ -10,6 +10,7 @@
  * Do not edit the class manually.
  */
 import { QuestionType } from './questionType';
+import { StringDoubleNullableValueTuple } from './stringDoubleNullableValueTuple';
 import { ValidationConfig } from './validationConfig';
 
 export interface QuestionDto { 
@@ -18,5 +19,5 @@ export interface QuestionDto {
     questionText: string;
     questionType: QuestionType;
     validationConfig?: ValidationConfig;
-    values?: Array<string>;
+    values?: Array<StringDoubleNullableValueTuple>;
 }
