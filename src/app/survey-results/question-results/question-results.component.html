@@ -57,6 +57,41 @@
         </tbody>
       </table>
     </tab>
+    <tab *ngIf="questionResult?.questionType === 'Numeric'" heading="Statistics">
+        <div *ngIf="!questionResult?.statistics" class="ml-4">
+          No answers to calculate statistics
+        </div>
+        <div *ngIf="questionResult?.statistics" class="ml-4">
+          <div class="row">
+            <div class="col-3">Min</div>
+            <div class="col-9">{{questionResult?.statistics?.min}}</div>
+          </div>
+          <div class="row">
+            <div class="col-3">Max</div>
+            <div class="col-9">{{questionResult?.statistics?.max}}</div>
+          </div>
+          <div class="row">
+            <div class="col-3">Average</div>
+            <div class="col-9">{{questionResult?.statistics?.mean}}</div>
+          </div>
+          <div class="row">
+            <div class="col-3">Median</div>
+            <div class="col-9">{{questionResult?.statistics?.median}}</div>
+          </div>
+          <div class="row">
+            <div class="col-3">Variance</div>
+            <div class="col-9">{{questionResult?.statistics?.variance}}</div>
+          </div>
+          <div class="row">
+            <div class="col-3">Standard deviation</div>
+            <div class="col-9">{{questionResult?.statistics?.standardDeviation}}</div>
+          </div>
+          <div class="row">
+            <div class="col-3">Mode</div>
+            <div class="col-9">{{questionResult?.statistics?.mode}}</div>
+          </div>
+        </div>
+    </tab>
   </tabset>
 </div>
 

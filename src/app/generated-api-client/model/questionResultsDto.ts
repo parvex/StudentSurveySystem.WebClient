@@ -12,6 +12,7 @@
 import { AnswerPercentage } from './answerPercentage';
 import { QuestionAnswerDto } from './questionAnswerDto';
 import { QuestionType } from './questionType';
+import { Statistics } from './statistics';
 
 export interface QuestionResultsDto { 
     questionIndex?: number;
@@ -20,5 +21,5 @@ export interface QuestionResultsDto {
     questionType?: QuestionType;
     questionAnswers?: Array<QuestionAnswerDto>;
     answerPercentages?: Array<AnswerPercentage>;
-    mean?: number;
+    statistics?: Statistics;
 }

@@ -22,6 +22,7 @@ export interface SurveyDto {
     isTemplate?: boolean;
     anonymous?: boolean;
     courseName?: string;
+    courseSemesterName?: string;
     creatorName?: string;
     endDate?: Date;
     readonly today?: Date;

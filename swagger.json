@@ -458,6 +458,44 @@
         }
       }
     },
+    "/Surveys/MyActiveSurveyNames": {
+      "get": {
+        "tags": [
+          "Surveys"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/Surveys/MySurveyTemplates": {
       "get": {
         "tags": [
@@ -867,6 +905,44 @@
       }
     },
     "/Surveys/GetSemestersAndMyCourses": {
+      "get": {
+        "tags": [
+          "Surveys"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SemesterDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SemesterDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SemesterDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Surveys/GetSemsAndCoursesAsStudent": {
       "get": {
         "tags": [
           "Surveys"
@@ -1328,6 +1404,47 @@
         },
         "additionalProperties": false
       },
+      "Statistics": {
+        "type": "object",
+        "properties": {
+          "mean": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "min": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "max": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "median": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "variance": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "standardDeviation": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          },
+          "mode": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "QuestionResultsDto": {
         "type": "object",
         "properties": {
@@ -1360,9 +1477,8 @@
             },
             "nullable": true
           },
-          "mean": {
-            "type": "number",
-            "format": "double"
+          "statistics": {
+            "$ref": "#/components/schemas/Statistics"
           }
         },
         "additionalProperties": false
@@ -1503,6 +1619,10 @@
             "type": "boolean"
           },
           "courseName": {
+            "type": "string",
+            "nullable": true
+          },
+          "courseSemesterName": {
             "type": "string",
             "nullable": true
           },

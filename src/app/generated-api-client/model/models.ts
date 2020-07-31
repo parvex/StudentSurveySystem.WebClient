@@ -12,6 +12,7 @@ export * from './questionResultsDto';
 export * from './questionType';
 export * from './semester';
 export * from './semesterDto';
+export * from './statistics';
 export * from './surveyDto';
 export * from './surveyListItemDto';
 export * from './surveyResponseDetailsDto';
