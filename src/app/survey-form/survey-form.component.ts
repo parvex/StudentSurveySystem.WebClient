@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { arrayIsNotEmptyValidator } from '../shared/shared-validators';
+import { ServerErrorParserService } from '../server-error-parser/server-error-parser-service';
 
 @Component({
   selector: 'app-survey-form',
@@ -52,7 +53,8 @@ export class SurveyFormComponent implements OnInit {
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
     private fb: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private errorParser: ServerErrorParserService) { }
 
   ngOnInit(): void {
     this.minDate = new Date();
@@ -104,11 +106,15 @@ export class SurveyFormComponent implements OnInit {
     if(this.surveyId !== 'survey' && this.surveyId!=='template'){
       this.service.surveysIdPut(this.surveyId, this.formValue, activate).subscribe(x => {
         this.onNavigateBack();
-      }, error => {console.log(error)});
+      }, error => {
+        this.errorParser.parseAndShowErrors(error);
+      });
     }
     else{
       this.service.surveysPost(this.surveyForm.value, activate).subscribe(x => {
         this.onNavigateBack();
+      }, error => {
+        this.errorParser.parseAndShowErrors(error);
       });
     }
   }
@@ -164,6 +170,8 @@ export class SurveyFormComponent implements OnInit {
     this.service.surveysStartSurveyFromTemplatePost(this.formValue).subscribe(() => {
       this.onNavigateBack();
       this.spinner.hide();
+    }, error => {
+      this.errorParser.parseAndShowErrors(error);
     })
   }
 
