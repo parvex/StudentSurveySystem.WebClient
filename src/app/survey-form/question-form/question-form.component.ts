@@ -50,6 +50,7 @@ export class QuestionFormComponent implements OnInit {
   questionTypes = Object.keys(QuestionType).map(i => QuestionType[i]);
   dateRange: Array<Date>;
   questionForm = this.fb.group({
+    id: [],
     index: [, [Validators.required]],
     questionText: [, [Validators.required]],
     questionType: [, [Validators.required]],

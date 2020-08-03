@@ -57,7 +57,7 @@
         </tbody>
       </table>
     </tab>
-    <tab *ngIf="questionResult?.questionType === 'Numeric'" heading="Statistics">
+    <tab *ngIf="questionResult?.questionType === 'Numeric' || questionResult?.questionType === 'ValuedSingleSelect'" heading="Statistics">
         <div *ngIf="!questionResult?.statistics" class="ml-4">
           No answers to calculate statistics
         </div>
