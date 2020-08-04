@@ -35,7 +35,7 @@ export class ResponseListComponent implements OnInit {
 
   onShowClick(content, id: number){
     this.spinner.show();
-    this.surveyResponsesService.surveyResponsesIdGet(id).subscribe(data => {
+    this.surveyResponsesService.surveyResponsesDetailsIdGet(id).subscribe(data => {
       this.selectedResponse = data;
       this.modal = this.modalService.show(content, {class: 'modal-xl'});
       this.spinner.hide();

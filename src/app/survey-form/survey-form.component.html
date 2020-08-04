@@ -69,6 +69,7 @@
 
         </tbody>
       </table>
+      <p>You can test survey on mobile app before activating it</p>
       <button class="btn btn-primary" (click)="onSubmit(false)" [disabled]="surveyForm.invalid" type="button">Save</button>
       <button class="btn btn-primary ml-2" *ngIf="!survey?.isTemplate" (click)="onSubmit(true)" [disabled]="surveyForm.invalid" type="button">Activate survey</button>
       <button class="btn btn-primary ml-2" *ngIf="survey?.isTemplate" [disabled]="surveyForm.invalid" (click)="onCreateSurveyFromTemplateClick()" [disabled]="surveyForm.invalid" type="button">Create survey from template</button>
