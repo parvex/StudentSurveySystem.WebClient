@@ -18,6 +18,7 @@ export interface QuestionDto {
     index: number;
     questionText: string;
     questionType: QuestionType;
+    required?: boolean;
     validationConfig?: ValidationConfig;
     values?: Array<StringDoubleNullableValueTuple>;
 }

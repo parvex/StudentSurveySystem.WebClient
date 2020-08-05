@@ -53,6 +53,7 @@ export class QuestionFormComponent implements OnInit {
     id: [],
     index: [, [Validators.required]],
     questionText: [, [Validators.required]],
+    required: [false],
     questionType: [, [Validators.required]],
     values: [[]],
     selectText: [],
@@ -70,6 +71,7 @@ export class QuestionFormComponent implements OnInit {
 
   get index() { return this.questionForm.get('index')}
   get questionText() { return this.questionForm.get('questionText')}
+  get required() { return this.questionForm.get('required')}
   get questionType() { return this.questionForm.get('questionType')}
   get integer() { return this.questionForm.get('validationConfig.integer')}
   get minNumericValue() { return this.questionForm.get('validationConfig.minNumericValue')}
@@ -93,7 +95,7 @@ export class QuestionFormComponent implements OnInit {
   }
 
   onAddValue(){
-    if(this.selectValue.value && (this.questionType.value !== 'ValuedSingleSelect' || this.selectText.value)){
+    if(this.selectText.value && (this.questionType.value !== 'ValuedSingleSelect' || this.selectValue.value)){
       if(!this.values.value){
         this.values.setValue([]);
       }

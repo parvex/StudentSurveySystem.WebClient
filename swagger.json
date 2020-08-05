@@ -899,7 +899,24 @@
         },
         "responses": {
           "200": {
-            "description": "Success"
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyDto"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyDto"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SurveyDto"
+                }
+              }
+            }
           }
         }
       }
@@ -1579,6 +1596,9 @@
           },
           "questionType": {
             "$ref": "#/components/schemas/QuestionType"
+          },
+          "required": {
+            "type": "boolean"
           },
           "validationConfig": {
             "$ref": "#/components/schemas/ValidationConfig"

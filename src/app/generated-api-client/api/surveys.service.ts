@@ -679,9 +679,9 @@ export class SurveysService {
      * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
      * @param reportProgress flag to report request and response progress.
      */
-    public surveysStartSurveyFromTemplatePost(body?: SurveyDto, observe?: 'body', reportProgress?: boolean): Observable<any>;
-    public surveysStartSurveyFromTemplatePost(body?: SurveyDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<any>>;
-    public surveysStartSurveyFromTemplatePost(body?: SurveyDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<any>>;
+    public surveysStartSurveyFromTemplatePost(body?: SurveyDto, observe?: 'body', reportProgress?: boolean): Observable<SurveyDto>;
+    public surveysStartSurveyFromTemplatePost(body?: SurveyDto, observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<SurveyDto>>;
+    public surveysStartSurveyFromTemplatePost(body?: SurveyDto, observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<SurveyDto>>;
     public surveysStartSurveyFromTemplatePost(body?: SurveyDto, observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
 
 
@@ -696,6 +696,9 @@ export class SurveysService {
         }
         // to determine the Accept header
         let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
         ];
         const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
         if (httpHeaderAcceptSelected != undefined) {
@@ -714,7 +717,7 @@ export class SurveysService {
             headers = headers.set('Content-Type', httpContentTypeSelected);
         }
 
-        return this.httpClient.request<any>('post',`${this.basePath}/Surveys/StartSurveyFromTemplate`,
+        return this.httpClient.request<SurveyDto>('post',`${this.basePath}/Surveys/StartSurveyFromTemplate`,
             {
                 body: body,
                 withCredentials: this.configuration.withCredentials,
