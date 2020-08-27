@@ -19,6 +19,7 @@ import { Observable }                                        from 'rxjs';
 
 import { AuthenticateDto } from '../model/authenticateDto';
 import { CurrentUserDto } from '../model/currentUserDto';
+import { SemesterDto } from '../model/semesterDto';
 import { User } from '../model/user';
 import { UsosAuthDto } from '../model/usosAuthDto';
 
@@ -106,6 +107,96 @@ export class UsersService {
         return this.httpClient.request<CurrentUserDto>('post',`${this.basePath}/Users/Authenticate`,
             {
                 body: body,
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public usersGetSemestersAndMyCoursesGet(observe?: 'body', reportProgress?: boolean): Observable<Array<SemesterDto>>;
+    public usersGetSemestersAndMyCoursesGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SemesterDto>>>;
+    public usersGetSemestersAndMyCoursesGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SemesterDto>>>;
+    public usersGetSemestersAndMyCoursesGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<SemesterDto>>('get',`${this.basePath}/Users/GetSemestersAndMyCourses`,
+            {
+                withCredentials: this.configuration.withCredentials,
+                headers: headers,
+                observe: observe,
+                reportProgress: reportProgress
+            }
+        );
+    }
+
+    /**
+     * 
+     * 
+     * @param observe set whether or not to return the data Observable as the body, response or events. defaults to returning the body.
+     * @param reportProgress flag to report request and response progress.
+     */
+    public usersGetSemsAndCoursesAsStudentGet(observe?: 'body', reportProgress?: boolean): Observable<Array<SemesterDto>>;
+    public usersGetSemsAndCoursesAsStudentGet(observe?: 'response', reportProgress?: boolean): Observable<HttpResponse<Array<SemesterDto>>>;
+    public usersGetSemsAndCoursesAsStudentGet(observe?: 'events', reportProgress?: boolean): Observable<HttpEvent<Array<SemesterDto>>>;
+    public usersGetSemsAndCoursesAsStudentGet(observe: any = 'body', reportProgress: boolean = false ): Observable<any> {
+
+        let headers = this.defaultHeaders;
+
+        // authentication (Bearer) required
+        if (this.configuration.accessToken) {
+            const accessToken = typeof this.configuration.accessToken === 'function'
+                ? this.configuration.accessToken()
+                : this.configuration.accessToken;
+            headers = headers.set('Authorization', 'Bearer ' + accessToken);
+        }
+        // to determine the Accept header
+        let httpHeaderAccepts: string[] = [
+            'text/plain',
+            'application/json',
+            'text/json'
+        ];
+        const httpHeaderAcceptSelected: string | undefined = this.configuration.selectHeaderAccept(httpHeaderAccepts);
+        if (httpHeaderAcceptSelected != undefined) {
+            headers = headers.set('Accept', httpHeaderAcceptSelected);
+        }
+
+        // to determine the Content-Type header
+        const consumes: string[] = [
+        ];
+
+        return this.httpClient.request<Array<SemesterDto>>('get',`${this.basePath}/Users/GetSemsAndCoursesAsStudent`,
+            {
                 withCredentials: this.configuration.withCredentials,
                 headers: headers,
                 observe: observe,

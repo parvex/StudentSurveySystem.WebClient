@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SurveyDto, SurveysService, SemesterDto, CourseDto, ValidationConfig, QuestionDto } from '../generated-api-client';
+import { SurveyDto, SurveysService, SemesterDto, CourseDto, ValidationConfig, QuestionDto, UsersService } from '../generated-api-client';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Observable } from 'rxjs/internal/Observable';
 import { Subject } from 'rxjs';
@@ -48,7 +48,8 @@ export class SurveyFormComponent implements OnInit {
     courseId: ['', [Validators.required]],
   });
 
-  constructor(private service: SurveysService,
+  constructor(private surveysService: SurveysService,
+    private usersService: UsersService,
     private modalService: BsModalService,
     private route: ActivatedRoute,
     private spinner: NgxSpinnerService,
@@ -76,7 +77,7 @@ export class SurveyFormComponent implements OnInit {
         this.loadCourses();
       }
       else{
-        this.service.surveysIdGet(this.surveyId).subscribe(s => {
+        this.surveysService.surveysIdGet(this.surveyId).subscribe(s => {
           this.survey = s;
           this.survey.endDate = new Date(this.survey.endDate);
           this.surveyForm.patchValue(this.survey);
@@ -87,7 +88,7 @@ export class SurveyFormComponent implements OnInit {
   }
 
   loadCourses(){
-    this.service.surveysGetSemestersAndMyCoursesGet().subscribe(x => {
+    this.usersService.usersGetSemestersAndMyCoursesGet().subscribe(x => {
       this.semesters = x
       let semester = this.semesters.find(x => x.courses.some(y => y.id == this.survey.courseId));
       this.semester.setValue(semester ?? this.semesters.slice(-1)[0]);
@@ -104,14 +105,14 @@ export class SurveyFormComponent implements OnInit {
     let formValue = this.formValue;
     formValue.endDate.setHours(23, 59, 59, 999);
     if(this.surveyId !== 'survey' && this.surveyId!=='template'){
-      this.service.surveysIdPut(this.surveyId, this.formValue, activate).subscribe(x => {
+      this.surveysService.surveysIdPut(this.surveyId, this.formValue, activate).subscribe(x => {
         this.onNavigateBack();
       }, error => {
         this.errorParser.parseAndShowErrors(error);
       });
     }
     else{
-      this.service.surveysPost(this.surveyForm.value, activate).subscribe(x => {
+      this.surveysService.surveysPost(this.surveyForm.value, activate).subscribe(x => {
         this.onNavigateBack();
       }, error => {
         this.errorParser.parseAndShowErrors(error);
@@ -167,7 +168,7 @@ export class SurveyFormComponent implements OnInit {
 
   onCreateSurveyFromTemplateClick(){
     this.spinner.show();
-    this.service.surveysStartSurveyFromTemplatePost(this.formValue).subscribe(() => {
+    this.surveysService.surveysStartSurveyFromTemplatePost(this.formValue).subscribe(() => {
       this.onNavigateBack();
       this.spinner.hide();
     }, error => {

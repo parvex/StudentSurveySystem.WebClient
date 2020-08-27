@@ -563,7 +563,7 @@
         }
       }
     },
-    "/Surveys/MyNotFilledForm": {
+    "/Surveys/MyNotFilledForms": {
       "get": {
         "tags": [
           "Surveys"
@@ -921,82 +921,6 @@
         }
       }
     },
-    "/Surveys/GetSemestersAndMyCourses": {
-      "get": {
-        "tags": [
-          "Surveys"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SemesterDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SemesterDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SemesterDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/Surveys/GetSemsAndCoursesAsStudent": {
-      "get": {
-        "tags": [
-          "Surveys"
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "text/plain": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SemesterDto"
-                  }
-                }
-              },
-              "application/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SemesterDto"
-                  }
-                }
-              },
-              "text/json": {
-                "schema": {
-                  "type": "array",
-                  "items": {
-                    "$ref": "#/components/schemas/SemesterDto"
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/Users/Authenticate": {
       "post": {
         "tags": [
@@ -1187,6 +1111,82 @@
               "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/User"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/GetSemestersAndMyCourses": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SemesterDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SemesterDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SemesterDto"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Users/GetSemsAndCoursesAsStudent": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SemesterDto"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SemesterDto"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/SemesterDto"
+                  }
                 }
               }
             }
@@ -1681,53 +1681,6 @@
         },
         "additionalProperties": false
       },
-      "CourseDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "semesterId": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "semesterName": {
-            "type": "string",
-            "nullable": true
-          },
-          "leaderId": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "SemesterDto": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "integer",
-            "format": "int32"
-          },
-          "name": {
-            "type": "string",
-            "nullable": true
-          },
-          "courses": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/CourseDto"
-            },
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
       "AuthenticateDto": {
         "type": "object",
         "properties": {
@@ -1956,6 +1909,53 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/CourseLecturer"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "CourseDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "semesterId": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "semesterName": {
+            "type": "string",
+            "nullable": true
+          },
+          "leaderId": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SemesterDto": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "courses": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CourseDto"
             },
             "nullable": true
           }
